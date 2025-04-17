@@ -13,7 +13,7 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: 7emerys_admin
-      MYSQL_DATABASE: mydb
+      MYSQL_DATABASE: world_of_code
     volumes:
       - mysql-data:/var/lib/mysql
     ports:

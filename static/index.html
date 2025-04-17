@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word of CODE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="for_animated">
+        <header>
+        <div>
+            <img class="logo" >
+            <button class="register" type="button" onclick="location.href='register.html'">Регистрация</button>
+            <button class="login" type="button"  onclick="location.href='login.html'">Войти</button>
+
+        </div>
+        </header>
+        <section class="welcome">
+            <h1>Добро пожаловать!
+              <br>В мир программирования</br> </h1>
+        </section>
+
+        <section class="about_website">
+            <p>Веб-приложение для изучения <br>программирования и решения <br>практических задач. Поднимите свои <br>навыки на новый уровень!</p>
+            <img src="/img/Browser.png" alt="Неработает" class="Browser">
+        <div>
+            <button class="start" type="button" id="startButton">Начать</button>
+        </div>
+        </section>
+        <section>
+           <div class="conteiner_for_welcome2">
+            <h1 class="welcome2">ВЕБ-ПРИЛОЖЕНИЕ ПО ПРОГРАММИРОВАНИЮ МОЖЕТ БЫТЬ <br> ИСПОЛЬЗОВАНО ДЛЯ РАЗЛИЧНЫХ ЦЕЛЕЙ, В ТОМ ЧИСЛЕ</h1>
+           </div>
+        </section>
+
+        <section class="all_rectangle">
+            <div class="rectangle1">
+                <P class="rectangle1_text">Платформа может служить ресурсом для новичков, желающих изучить основы программирования. Она будет предоставлять курсы, уроки и материалы для самостоятельного изучения.</P>
+            </div>
+            <div class="rectangle2">
+                <p class="rectangle2_text">Пользователи смогут практиковаться с реальными задачами, что поможет им улучшить свои навыки и уверенность в кодировании.</p>
+            </div>
+            <div class="rectangle3">
+                <p class="rectangle3_text">Решение алгоритмических задач поможет пользователям развивать аналитическое мышление и умение находить нестандартные решения. </p>
+            </div>
+
+        </section>
+
+
+
+        <section class="vk_tg">
+            <div>
+                <h1 class="vk_tg_aLL">Наши соц сети</h1>
+            </div>
+            <div class="qr_vk"></div>
+            </div>
+            <img src="/img/QR.jpg" alt="()" class="img_qr2">
+            <div class="qr_tg"></div>
+            </div>
+            <img src="/img/QR.jpg" alt="()" class="img_qr">
+        </section>
+
+        <h1 class="welcome3">Разработчики WORLD of CODE</h1>
+        <section >
+            <div class="rectangle_razrab">
+                <div class="img-container">
+                    <p class="a">A</p>
+                    <img src="/img/Ellipse 1.png" class="senya">
+                </div>
+                <div class="img-container">
+                    <p class="e">E</p>
+                    <img src="/img/Ellipse 2.png" class="ega">
+                </div>
+                <div class="img-container">
+                    <p class="a1">A</p>
+                    <img src="/img/Ellipse 3.png" class="artyr">
+                </div>
+                <div class="img-container">
+                    <p class="e1">E</p>
+                    <img src="/img/Ellipse 4.png" class="gor">
+
+            <DIV> <p class="text-under">Мы разработали сайт, который охватывает все аспекты обучения программированию. В рамках нашей работы мы создали интуитивно понятный интерфейс, также обеспечили работу с базами данных. Спасибо, что выбираете наш сайт!</p>
+            </DIV>
+        </section>
+
+
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 WORD OF CODE. Все права защищены.</p>
+    </footer>
+
+<script>
+        // Функция проверки авторизации
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/check-auth', {
+                    credentials: 'include'
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Ошибка проверки авторизации:', error);
+                return { authenticated: false };
+            }
+        }
+
+        // Обработчик кнопки "Начать"
+        document.getElementById('startButton').addEventListener('click', async function() {
+            const authData = await checkAuth();
+
+            if (authData.authenticated) {
+                window.location.href = '/static/tasks.html';
+            } else {
+                if (authData.message === "Токен истёк") {
+                    alert("Ваша сессия истекла. Авторизуйтесь снова.");
+                }
+                window.location.href = '/static/login.html';
+            }
+        });
+
+        // Дополнительно: проверка авторизации при загрузке страницы
+        // (если нужно автоматически перенаправлять авторизованных пользователей)
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Только если мы на главной странице
+            if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                const authData = await checkAuth();
+                if (authData.authenticated) {
+                    // Автоматическое перенаправление можно включить/отключить
+                    // window.location.href = '/static/tasks.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

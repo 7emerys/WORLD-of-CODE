@@ -175,18 +175,66 @@
             margin-top: 10px;
             font-size: 14px;
         }
+
+        /* Добавляем новые стили для подсказок */
+        .password-hints {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgba(22, 25, 28, 0.8);
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .password-hints ul {
+            list-style-type: none;
+            padding-left: 5px;
+            margin: 5px 0 0 0;
+        }
+
+        .password-hints li {
+            margin-bottom: 3px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .password-hints li:before {
+            content: "✖";
+            position: absolute;
+            left: 0;
+            color: #ff4444;
+        }
+
+        .password-hints li.valid:before {
+            content: "✓";
+            color: #00C851;
+        }
+
+        .password-strength {
+            height: 5px;
+            background: #333;
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, #ff4444, #00C851);
+            transition: width 0.3s;
+        }
     </style>
 </head>
 <body>
     <div class="animation-container">
         <h1 class="welcome">Регистрация</h1>
-        <img id="character" src="../img/Сова пнг без фона/1.png" alt="Человек" />
+        <img id="character" src="/img/Сова пнг без фона/1.png" alt="Человек" />
 
         <div class="inputs-container">
             <div class="field-group">
                 <label class="username">Имя пользователя</label>
                 <div class="field-wrapper">
-                    <img src="../img/Сова пнг без фона/user 1.svg" class="icon_user">
+                    <img src="/img/Сова пнг без фона/user 1.svg" class="icon_user">
                     <input class="field-input" id="input1" type="text" placeholder="Введите ваше имя пользователя" />
                 </div>
             </div>
@@ -194,18 +242,32 @@
             <div class="field-group2">
                 <label class="password">Пароль</label>
                 <div class="field-wrapper">
-                    <img src="../img/Сова пнг без фона/padlock 1.svg" class="icon_lock">
+                    <img src="/img/Сова пнг без фона/padlock 1.svg" class="icon_lock">
                     <input class="field-input" id="input2" type="password" placeholder="Введите ваш пароль" />
+                </div>
+                <!-- Добавляем блок с подсказками -->
+                <div class="password-hints">
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                    <ul>
+                        <li id="length-hint">Минимум 8 символов</li>
+                        <li id="number-hint">Содержит цифру</li>
+                        <li id="upper-hint">Содержит заглавную букву</li>
+                        <li id="special-hint">Содержит спецсимвол (!@#$% и т.д.)</li>
+                    </ul>
                 </div>
             </div>
 
             <div class="field-group3">
                 <label class="password2">Подтвердите пароль</label>
                 <div class="field-wrapper">
-                    <img src="../img/Сова пнг без фона/padlock 1.svg" class="icon_lock">
+                    <img src="/img/Сова пнг без фона/padlock 1.svg" class="icon_lock">
                     <input class="field-input" id="input3" type="password" placeholder="Подтвердите ваш пароль" />
                 </div>
+                <p id="password-match" style="color: #ff4444; font-size: 12px; margin-top: 5px; display: none;">Пароли не совпадают</p>
             </div>
+
             <button type="button" class="btn" onclick="register()">Регистрация</button>
             <p class="TEXT">Если у вас есть аккаунт, войдите <a href="login.html" class="link">здесь!</a></p>
             <p class="message" id="message"></p>
@@ -217,6 +279,7 @@
         const input1 = document.getElementById('input1');
         const input2 = document.getElementById('input2');
         const input3 = document.getElementById('input3');
+        const registerButton = document.getElementById('registerButton');
         let currentFrame = 5;
 
         let input2Active = false;
@@ -226,7 +289,7 @@
             clearInterval(animationInterval);
             let frame = startFrame;
             animationInterval = setInterval(() => {
-                character.src = `../img/Сова пнг без фона/${frame}.png`;
+                character.src = `/img/Сова пнг без фона/${frame}.png`;
                 frame++;
                 if (frame > endFrame) {
                     clearInterval(animationInterval);
@@ -243,11 +306,11 @@
             if (event.inputType === "deleteContentBackward") {
                 if (currentFrame > 5) {
                     currentFrame--;
-                    character.src = `../img/Сова пнг без фона/${currentFrame}.png`;
+                    character.src = `/img/Сова пнг без фона/${currentFrame}.png`;
                 }
             } else {
                 if (currentFrame < 26) {
-                    character.src = `../img/Сова пнг без фона/${currentFrame}.png`;
+                    character.src = `/img/Сова пнг без фона/${currentFrame}.png`;
                     currentFrame++;
                 }
             }
@@ -276,37 +339,92 @@
         });
 
         input2.addEventListener('input', function() {
-            character.src = `../img/Сова пнг без фона/32.png`;
+            character.src = `/img/Сова пнг без фона/32.png`;
         });
 
         input2.addEventListener('focus', function() {
-            character.src = `../img/Сова пнг без фона/32.png`;
+            character.src = `/img/Сова пнг без фона/32.png`;
         });
 
         input2.addEventListener('blur', function() {
-            character.src = "../img/Сова пнг без фона/1.png";
+            character.src = "/img/Сова пнг без фона/1.png";
         });
 
         input3.addEventListener('input', function() {
-            character.src = `../img/Сова пнг без фона/32.png`;
+            character.src = `/img/Сова пнг без фона/32.png`;
         });
 
         input3.addEventListener('focus', function() {
-            character.src = `../img/Сова пнг без фона/32.png`;
+            character.src = `/img/Сова пнг без фона/32.png`;
         });
 
         input3.addEventListener('blur', function() {
-            character.src = "../img/Сова пнг без фона/1.png";
+            character.src = "/img/Сова пнг без фона/1.png";
         });
 
-        // Функция для регистрации
+        function checkPasswordComplexity(password) {
+            const hasMinLength = password.length >= 8;
+            const hasNumber = /\d/.test(password);
+            const hasUpper = /[A-ZА-Я]/.test(password);
+            const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+            // Обновляем подсказки
+            document.getElementById('length-hint').classList.toggle('valid', hasMinLength);
+            document.getElementById('number-hint').classList.toggle('valid', hasNumber);
+            document.getElementById('upper-hint').classList.toggle('valid', hasUpper);
+            document.getElementById('special-hint').classList.toggle('valid', hasSpecial);
+
+            // Рассчитываем сложность пароля (0-4)
+            const strength = [hasMinLength, hasNumber, hasUpper, hasSpecial].filter(Boolean).length;
+            document.getElementById('strengthBar').style.width = `${strength * 25}%`;
+
+            return hasMinLength && hasNumber && hasUpper && hasSpecial;
+        }
+
+        function checkPasswordsMatch() {
+            const password = input2.value;
+            const confirmPassword = input3.value;
+            const matchElement = document.getElementById('password-match');
+
+            if (password && confirmPassword) {
+                if (password !== confirmPassword) {
+                    matchElement.style.display = 'block';
+                    return false;
+                } else {
+                    matchElement.style.display = 'none';
+                    return true;
+                }
+            }
+            matchElement.style.display = 'none';
+            return false;
+        }
+
+        function validateForm() {
+            const usernameValid = input1.value.trim().length > 0;
+            const passwordValid = checkPasswordComplexity(input2.value);
+            const passwordsMatch = checkPasswordsMatch();
+
+            registerButton.disabled = !(usernameValid && passwordValid && passwordsMatch);
+        }
+
+        // Слушатели событий
+        input1.addEventListener('input', validateForm);
+        input2.addEventListener('input', validateForm);
+        input3.addEventListener('input', validateForm);
+
         async function register() {
-            const username = document.getElementById("input1").value;
-            const password = document.getElementById("input2").value;
-            const confirmPassword = document.getElementById("input3").value;
+            const username = input1.value.trim();
+            const password = input2.value;
+            const confirmPassword = input3.value;
             const message = document.getElementById("message");
 
-            // Проверка совпадения паролей
+            // Дополнительная проверка перед отправкой
+            if (!checkPasswordComplexity(password)) {
+                message.textContent = "Пароль не соответствует требованиям";
+                message.style.color = "red";
+                return;
+            }
+
             if (password !== confirmPassword) {
                 message.textContent = "Пароли не совпадают";
                 message.style.color = "red";
@@ -314,29 +432,48 @@
             }
 
             try {
-                const formData = new URLSearchParams();
-                formData.append("username", username);
-                formData.append("password", password);
-
-                const response = await fetch("/register", {
+                const response = await fetch("/api/register", {
                     method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: formData
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        username: username,
+                        password: password,
+                        confirm_password: confirmPassword
+                    }),
+                    credentials: "include"
                 });
+
                 const result = await response.json();
+
                 if (response.ok) {
-                    message.textContent = result.message;
+                    message.textContent = "Регистрация успешна! Перенаправление...";
                     message.style.color = "green";
-                    setTimeout(() => window.location.href = "/static/login.html", 1000);
+
+                    // Проверяем авторизацию и перенаправляем
+                    const authCheck = await fetch("/api/check-auth", {
+                        credentials: "include"
+                    });
+
+                    if (authCheck.ok) {
+                        window.location.href = "/static/tasks.html";
+                    } else {
+                        window.location.href = "/static/login.html";
+                    }
                 } else {
-                    message.textContent = result.detail;
+                    message.textContent = result.detail || "Ошибка регистрации";
                     message.style.color = "red";
                 }
             } catch (error) {
-                message.textContent = "Ошибка: " + error;
+                message.textContent = "Ошибка соединения с сервером";
                 message.style.color = "red";
+                console.error("Ошибка регистрации:", error);
             }
         }
+
+        // Назначаем обработчик на кнопку
+        registerButton.addEventListener('click', register);
     </script>
 </body>
 </html>

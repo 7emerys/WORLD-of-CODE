@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap" rel="stylesheet">
+    <title>Настройки аккаунта</title>
+    <style>
+        * {
+            font-family: 'Montserrat Alternates', sans-serif;  
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            min-height: 100vh;
+            background-color: #000;
+            color: #fff;
+            background-image: url('../img/Frame 21.png');
+            position: relative;
+        }
+        .center-container {
+            display: flex;
+            justify-content: center;
+            padding-top: 80px;
+        }
+        .container {
+            width: 600px;
+            height: 300px;
+            background-color: transparent;
+            border-radius: 15px;
+            padding: 20px;
+            color: #999999;
+        }
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+            margin-top: 5%;
+        }
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #BDEE60;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .profile-name {
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .profile-buttons {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+            justify-content: center;
+            width: 100%;
+            margin-left: 2%;
+        }
+        .profile-btn {
+            background: none;
+            border: none;
+            color: #999999;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 5px 0;
+        }
+        .profile-btn:hover {
+            color: #fff;
+        }
+        .profile-btn.active {
+            color: #fff;
+            font-weight: bold;
+        }
+        .pseudo-container {
+            width: 100%;
+            padding: 15px;
+            position: relative;
+        }
+        .pseudo-input-wrapper2 {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .pseudo-input-border2 {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, #BDEE60, #005436);
+            z-index: 0;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 2px;
+        }
+        .pseudo-input2 {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #999999;
+            background-color: rgba(22, 25, 28, 0.66);
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+            height: 400px;
+            position: relative;
+        }
+        
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+           
+            width: 100%;
+            height: 100%;
+            place-items: center;
+            padding: 10px;
+        }
+  
+
+
+        .taski {
+            width: 220px; /* Немного увеличено для лучшего размещения контента */
+            height: 100px; /* Увеличена высота */
+            background-color: #ffffff;
+            border-radius: 24px;
+            box-shadow: 
+                0 0 10px #BDEE60,
+                0 0 15px #005436,
+                0 0 20px #005436;
+            animation: glow-pulse 3s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            position: relative;
+        }
+
+        .taski-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .taski-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .taski-text {
+            color: #000;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .taski-count {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .taski-label {
+            font-size: 12px;
+            color: #555;
+        }
+        .taski-img-dop{
+            position: absolute;
+            left: 12%;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="container">
+            <div class="header">
+                <div class="logo-container">
+                    <img id="logo" src="" class="logo">
+                </div>
+                <div class="profile-actions">
+                    <div class="profile-name"></div>
+                    <div class="profile-buttons">
+                        <a href="profile.html">
+                        <button class="profile-btn">Обо мне</button>
+                        </a>
+                        <button class="profile-btn active">Статистика</button>
+                        <a href="statistics.html">
+                        <button class="profile-btn">Достижения</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="pseudo-container">
+                <div class="pseudo-input-wrapper2">
+                    <div class="pseudo-input-border2"></div>
+                    <div class="pseudo-input2">
+                        <div class="tasks-grid">
+                            <div class="taski">
+                                <div class="taski-content">
+                                    <img src="/img/достижения/Group 288897.png" class="taski-img">
+                                    <div class="taski-text">
+                                        <span class="taski-count">55</span>
+                                        <span class="taski-label">решенных задач</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="taski">
+                                <div class="taski-content">
+                                    <img src="/img/достижения/Group 289104.png" class="taski-img">
+                                    <div class="taski-text">
+                                        <span class="taski-count">12</span>
+                                        <span class="taski-label">дней подряд</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="taski">
+                                <div class="taski-content">
+                                    <img src="/img/достижения/Group 289524.png" class="taski-img">
+                                    <div class="taski-text">
+                                        <span class="taski-count">3</span>
+                                        <span class="taski-label">уровень</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="taski">
+                                <div class="taski-content">
+                                    <img src="/img/достижения/Group 28897.png" class="taski-img">
+                                    <img src="/img/достижения/Group 481710.png" class="taski-img-dop">
+                                    <div class="taski-text">
+                                        <span class="taski-count">24</span>
+                                        <span class="taski-label">часа обучения</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", async function() {
+        // Проверка авторизации
+        async function checkAuth() {
+            try {
+                const response = await fetch("/api/check-auth", {
+                    credentials: 'include'
+                });
+                return await response.json();
+            } catch (error) {
+                console.error("Auth check failed:", error);
+                return {authenticated: false};
+            }
+        }
+
+        // Загрузка данных профиля
+        async function loadProfileData()
+        {
+            try
+            {
+                const response = await fetch("/api/profile/data", {credentials: 'include'});
+
+                if (response.status === 401)
+                {
+                    window.location.href = "/static/login.html";
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (data.success)
+                {
+                    // Обновляем данные на странице
+                    document.querySelector(".profile-name").textContent = data.username;
+                    document.getElementById("logo").src = data.avatar;
+                }
+
+                else
+                {
+                    console.error("Ошибка загрузки данных:", data.message);
+                }
+            }
+            catch (error)
+            {
+                console.error("Ошибка сети:", error);
+            }
+        }
+
+        // Инициализация
+        async function init() {
+            const auth = await checkAuth();
+            if (!auth.authenticated) {
+                window.location.href = "/static/login.html";
+                return;
+            }
+
+            await loadProfileData();
+        }
+
+        init();
+    });
+</script>
+
+</body>
+</html>

@@ -174,13 +174,13 @@
 <body>
     <div class="animation-container">
         <h1 class="welcome">Вход</h1>
-        <img id="character" src="../img/Сова пнг без фона/1.png" alt="Человек" />
+        <img id="character" src="/img/Сова пнг без фона/1.png" alt="Человек" />
 
         <div class="inputs-container">
             <div class="field-group">
                 <label class="username">Имя пользователя</label>
                 <div class="field-wrapper">
-                    <img src="../img/Сова пнг без фона/user 1.svg" class="icon_user">
+                    <img src="/img/Сова пнг без фона/user 1.svg" class="icon_user">
                     <input class="field-input" id="input1" type="text" placeholder="Введите ваше имя пользователя" />
                 </div>
             </div>
@@ -188,7 +188,7 @@
             <div class="field-group2">
                 <label class="password">Пароль</label>
                 <div class="field-wrapper">
-                    <img src="../img/Сова пнг без фона/padlock 1.svg" class="icon_lock">
+                    <img src="/img/Сова пнг без фона/padlock 1.svg" class="icon_lock">
                     <input class="field-input" id="input2" type="password" placeholder="Введите ваш пароль" />
                 </div>
             </div>
@@ -264,35 +264,38 @@
             character.src = "../img/Сова пнг без фона/1.png";
         });
 
-        // Функция для входа
         async function login() {
-            const username = document.getElementById("input1").value;
-            const password = document.getElementById("input2").value;
-            const message = document.getElementById("message");
+            const formData = new URLSearchParams();
+            formData.append('username', document.getElementById('input1').value);
+            formData.append('password', document.getElementById('input2').value);
 
             try {
-                const formData = new URLSearchParams();
-                formData.append("username", username);
-                formData.append("password", password);
-
-                const response = await fetch("/login", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: formData
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData,
+                    credentials: 'include'
                 });
-                const result = await response.json();
+
                 if (response.ok) {
-                    message.textContent = result.message;
-                    message.style.color = "green";
-                    // Перенаправление на главную страницу после входа
-                    setTimeout(() => window.location.href = "/static/index.html", 1000);
+                    // Проверяем авторизацию после успешного входа
+                    const authCheck = await fetch('/api/check-auth', {
+                        credentials: 'include'
+                    });
+
+                    if (authCheck.ok) {
+                        window.location.href = '/static/tasks.html';
+                    } else {
+                        document.getElementById('message').textContent = 'Ошибка проверки авторизации';
+                    }
                 } else {
-                    message.textContent = result.detail;
-                    message.style.color = "red";
+                    const error = await response.json();
+                    document.getElementById('message').textContent = error.detail || 'Ошибка входа';
                 }
-            } catch (error) {
-                message.textContent = "Ошибка: " + error;
-                message.style.color = "red";
+            } catch (e) {
+                document.getElementById('message').textContent = 'Ошибка соединения';
             }
         }
     </script>

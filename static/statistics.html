@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap" rel="stylesheet">
+    <title>Настройки аккаунта</title>
+    <style>
+        * {
+            font-family: 'Montserrat Alternates', sans-serif;  
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            min-height: 100vh;
+            background-color: #000;
+            color: #fff;
+            background-image: url('../img/Frame 21.png');
+            position: relative;
+        }   
+        .center-container {
+            display: flex;
+            justify-content: center;
+            padding-top: 80px;
+        }
+        .container {
+            width: 600px;
+            height: 300px;
+            background-color: transparent;
+            border-radius: 15px;
+            padding: 20px;
+            color: #999999;
+        }
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+            margin-top: 5%;
+        }
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #BDEE60;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .profile-name {
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .profile-buttons {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+            justify-content: center;
+            width: 100%;
+            margin-left: 2%;
+        }
+        .profile-btn {
+            background: none;
+            border: none;
+            color: #999999;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 5px 0;
+        }
+        .profile-btn:hover {
+            color: #fff;
+        }
+        .profile-btn.active {
+            color: #fff;
+            font-weight: bold;
+        }
+        .pseudo-container {
+            width: 100%;
+            padding: 15px;
+            position: relative;
+        }
+        .pseudo-input-wrapper2 {
+            position: relative;
+            width: 444px;
+            height: 135px;
+            margin: 0 auto;
+        }
+        .pseudo-input-border2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, #BDEE60, #005436);
+            z-index: 0;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 2px;
+        }
+        .pseudo-input2 {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #999999;
+            background-color: rgba(22, 25, 28, 0.66);
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .level-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            color: #fff;
+        }
+        
+        .level-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .level-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #BDEE60;
+            margin-right: 10px;
+            border-radius: 100px;
+            border: 4px solid beige;
+            padding: 5px 12px;
+        }
+        
+        .level-label {
+            font-size: 16px;
+        }
+        
+        .progress-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.322);
+            margin-top: -3%;
+            margin-left: 13%;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 12px;
+            background-color: #333;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 5px;
+            margin-top: 2%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #BDEE60, #005436, #BDEE60);
+            background-size: 200% 100%;
+            width: 87%;
+            border-radius: 6px;
+            position: relative;
+            animation: 
+                progressPulse 1.5s ease-in-out infinite,
+                progressWave 6s linear infinite;
+        }
+        
+        @keyframes progressPulse {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(189, 238, 96, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(189, 238, 96, 0.9);
+            }
+        }
+        
+        @keyframes progressWave {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+        
+        .progress-numbers {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #999;
+        }
+       
+        .medals-section-title {
+            color: #9098A3;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            width: 100%;
+        }
+        
+        .medals-container {
+            width: 444px;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 27px;
+            margin: 0 auto;
+        }
+             
+        .medal-item {
+            width: 120px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(22, 25, 28, 0.66);
+            border-radius: 8px;
+            padding: 15px 10px;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .medal-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            padding: 2px;
+            background: linear-gradient(to bottom, #BDEE60, #005436);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        .medal-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .medal-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .gold-circle {
+            background: radial-gradient(circle at 30% 30%, #FFD700, #CFB53B);
+            box-shadow: 
+                0 0 5px #FFD700,
+                0 0 10px rgba(255, 215, 0, 0.5),
+                0 0 15px rgba(255, 215, 0, 0.3);
+            border: 1px solid #CFB53B;
+            animation: glow 2s infinite alternate;
+        }
+        
+        .silver-circle {
+            background: radial-gradient(circle at 30% 30%, #B6C0D6, #A8A8A8);
+            box-shadow: 
+                0 0 5px #C0C0C0,
+                0 0 10px rgba(192, 192, 192, 0.5),
+                0 0 15px rgba(192, 192, 192, 0.3);
+            border: 1px solid #A8A8A8;
+            animation: glowSilver 2s infinite alternate;
+        }
+        
+        .bronze-circle {
+            background: radial-gradient(circle at 30% 30%, #97766F, #8B4513);
+            box-shadow: 
+                0 0 5px #CD7F32,
+                0 0 10px rgba(205, 127, 50, 0.5),
+                0 0 15px rgba(205, 127, 50, 0.3);
+            border: 1px solid #8B4513;
+            animation: glowBronze 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 
+                    0 0 5px #FFD700,
+                    0 0 10px rgba(255, 215, 0, 0.5);
+            }
+            to {
+                box-shadow: 
+                    0 0 10px #FFD700,
+                    0 0 20px rgba(255, 215, 0, 0.7),
+                    0 0 30px rgba(255, 215, 0, 0.4);
+            }
+        }
+        
+        @keyframes glowSilver {
+            from {
+                box-shadow: 
+                    0 0 5px #C0C0C0,
+                    0 0 10px rgba(192, 192, 192, 0.5);
+            }
+            to {
+                box-shadow: 
+                    0 0 10px #C0C0C0,
+                    0 0 20px rgba(192, 192, 192, 0.7),
+                    0 0 30px rgba(192, 192, 192, 0.4);
+            }
+        }
+        
+        @keyframes glowBronze {
+            from {
+                box-shadow: 
+                    0 0 5px #CD7F32,
+                    0 0 10px rgba(205, 127, 50, 0.5);
+            }
+            to {
+                box-shadow: 
+                    0 0 10px #CD7F32,
+                    0 0 20px rgba(205, 127, 50, 0.7),
+                    0 0 30px rgba(205, 127, 50, 0.4);
+            }
+        }
+        
+        .medal-name {
+            color: #ffffff;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .medal-quantity {
+            color: #BDEE60;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.144);
+            border-radius: 12px;
+            padding: 5px 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="container">
+            <div class="header">
+                <div class="logo-container">
+                    <img id="logo" src="" class="logo">
+                </div>
+                <div class="profile-actions">
+                    <div class="profile-name">Emerys</div>
+                    <div class="profile-buttons">
+                        <a href="profile.html"> 
+                        <button class="profile-btn">Обо мне</button>
+                        </a>
+                        <a href="achievements.html">
+                        <button class="profile-btn">Статистика</button>
+                        </a>
+                        <button class="profile-btn active">Достижения</button>
+                    </div>
+                </div>
+            </div>
+            <div class="pseudo-container">
+                <div class="pseudo-input-wrapper2">
+                    <div class="pseudo-input-border2"></div>
+                    <div class="pseudo-input2">
+                        <div class="level-container">
+                            <div class="level-header">
+                                <div class="level-number">2</div>
+                                <div class="level-label">Уровень2</div>
+                            </div>
+                            <div class="progress-text">800 поинтов до следующего уровня ★</div>
+                            <div class="progress-container">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <div class="progress-numbers">
+                                <span>5200</span>
+                                <span>6000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="medals-section-title">Медали</h2>
+                    <div class="medals-container">
+                        <div class="medal-item">
+                            <div class="medal-circle gold-circle"></div>
+                            <p class="medal-name">Золото</p>
+                            <p class="medal-quantity">24</p>
+                        </div>
+                        
+                        <div class="medal-item">
+                            <div class="medal-circle silver-circle"></div>
+                            <p class="medal-name">Серебро</p>
+                            <p class="medal-quantity">15</p>
+                        </div>
+                        
+                        <div class="medal-item">
+                            <div class="medal-circle bronze-circle"></div>
+                            <p class="medal-name">Бронза</p>
+                            <p class="medal-quantity">8</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", async function() {
+        // Проверка авторизации
+        async function checkAuth() {
+            try {
+                const response = await fetch("/api/check-auth", {
+                    credentials: 'include'
+                });
+                return await response.json();
+            } catch (error) {
+                console.error("Auth check failed:", error);
+                return {authenticated: false};
+            }
+        }
+
+        // Загрузка данных профиля
+        async function loadProfileData()
+        {
+            try
+            {
+                const response = await fetch("/api/profile/data", {credentials: 'include'});
+
+                if (response.status === 401)
+                {
+                    window.location.href = "/static/login.html";
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (data.success)
+                {
+                    // Обновляем данные на странице
+                    document.querySelector(".profile-name").textContent = data.username;
+                    document.getElementById("logo").src = data.avatar;
+                }
+
+                else
+                {
+                    console.error("Ошибка загрузки данных:", data.message);
+                }
+            }
+            catch (error)
+            {
+                console.error("Ошибка сети:", error);
+            }
+        }
+
+        // Инициализация
+        async function init() {
+            const auth = await checkAuth();
+            if (!auth.authenticated) {
+                window.location.href = "/static/login.html";
+                return;
+            }
+
+            await loadProfileData();
+        }
+
+        init();
+    });
+</script>
+
+</body>
+</html>
