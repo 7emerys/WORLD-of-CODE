@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response  # Добавляем Response
 from scripts.Database import Database
 import jwt
 from pydantic import BaseModel
@@ -64,18 +64,55 @@ async def get_tasks(request: Request):
     db = Database()
     try:
         cursor = db.connection.cursor(dictionary=True)
+
+        # Запрос без BLOB-данных
         cursor.execute("""
-            SELECT t.* 
-            FROM tasks t
-            ORDER BY t.difficulty, t.title
+            SELECT 
+                id,
+                title,
+                short_description,
+                full_description,
+                input_example,
+                output_example,
+                difficulty,
+                base_experience
+            FROM tasks
+            ORDER BY difficulty, title
         """)
+
         tasks = cursor.fetchall()
+
+        # Добавляем URL для логотипов
+        for task in tasks:
+            task['logo_url'] = f"/api/tasks/{task['id']}/logo"
+
         return {"success": True, "tasks": tasks}
     except Error as e:
         return JSONResponse(
             content={"success": False, "message": str(e)},
             status_code=500
         )
+    finally:
+        if db.connection.is_connected():
+            cursor.close()
+            db.connection.close()
+
+
+@router.get("/tasks/{task_id}/logo")
+async def get_task_logo(task_id: int, request: Request):
+    get_current_user(request)  # Проверка авторизации
+    db = Database()
+    try:
+        cursor = db.connection.cursor()
+        cursor.execute("SELECT logoUrl FROM tasks WHERE id = %s", (task_id,))
+        logo_data = cursor.fetchone()
+
+        if not logo_data or not logo_data[0]:
+            raise HTTPException(status_code=404)
+
+        return Response(content=logo_data[0], media_type="image/png")
+    except Error as e:
+        raise HTTPException(status_code=500, detail=str(e))
     finally:
         if db.connection.is_connected():
             cursor.close()
@@ -169,8 +206,8 @@ async def get_task_status(task_id: str, request: Request):
         return {'status': 'completed', 'results': task.result}
 
 
-@router.post("/api/save-solution")
-async def save_solution(request: Request):
+@router.post("/api/save-selection")
+async def save_user_selection(request: Request):
     username = get_current_user(request)
     data = await request.json()
 
@@ -186,25 +223,15 @@ async def save_solution(request: Request):
 
         user_id = user[0]
 
-        # Сохраняем решение
+        # Сохраняем выбор языка и задачи
         cursor.execute("""
-            INSERT INTO user_tasks 
-            (user_id, task_id, language, code, test_results, is_solved, solved_at)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO user_selections 
+            (user_id, task_id, language, selected_at)
+            VALUES (%s, %s, %s, %s)
             ON DUPLICATE KEY UPDATE
-            code = VALUES(code),
-            test_results = VALUES(test_results),
-            is_solved = VALUES(is_solved),
-            solved_at = IF(VALUES(is_solved) = TRUE AND is_solved = FALSE, NOW(), solved_at)
-        """, (
-            user_id,
-            data['task_id'],
-            data['language'],
-            data['code'],
-            json.dumps(data['test_results']),
-            data['is_solved'],
-            datetime.now() if data['is_solved'] else None
-        ))
+            language = VALUES(language),
+            selected_at = VALUES(selected_at)
+        """, (user_id, data['task_id'], data['language'], datetime.now()))
 
         db.connection.commit()
         return {"status": "success"}

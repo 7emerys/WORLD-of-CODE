@@ -25,6 +25,47 @@
             background-image: url('../img/Frame 29.png');
         }
 
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            gap: 15px;
+            color: #BDEE60;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 3px solid rgba(189, 238, 96, 0.2);
+            border-top: 3px solid #BDEE60;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        .warning-message {
+            background-color: rgba(189, 238, 96, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 0 auto 20px;
+            max-width: 80%;
+            text-align: center;
+            color: #BDEE60;
+        }
+
+        .no-tasks-message {
+            background-color: rgba(22, 25, 28, 0.66);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 80%;
+            text-align: center;
+            color: #ff6b6b;
+        }
+
         .task.empty {
             visibility: hidden;
             border: none;
@@ -531,6 +572,26 @@
             }
         }
 
+        .warning-message {
+            background-color: rgba(189, 238, 96, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 0 auto 20px;
+            max-width: 80%;
+            text-align: center;
+            color: #BDEE60;
+        }
+
+        .no-tasks-message {
+            background-color: rgba(22, 25, 28, 0.66);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 80%;
+            text-align: center;
+            color: #ff6b6b;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -544,7 +605,7 @@
                     </a>
                 </div>
                 <div class="logo2-container" id="settings-btn">
-                    <img src="/img/настройки/logo.png" class="logo2">
+                    <img id="logo2" src="" class="logo2">
                     <div class="popup" id="popup-menu">
                         <a href="setting.html" class="link">
                         <button class="popup-btn settings" href="setting.html">
@@ -596,77 +657,99 @@
             <div class="task_row">
                 <a href="/static/interpretator.html">
                 <div class="task">
+                    <img src="" class="world" alt=":()">
+                    <p class="task_text">HELLO <BR> WORLD!</p>
+                    <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
+                </div>
+                </a>
+                <a href="/static/interpretator.html">
+                <div class="task">
                     <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
                     <p class="task_text">HELLO <BR> WORLD!</p>
                     <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
                 </div>
                 </a>
-                <div class="task">
-                    <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
-                    <p class="task_text">HELLO <BR> WORLD!</p>
-                    <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
-                </div>
             </div>
-           
+
             <div class="task_row">
+                <a href="/static/interpretator.html">
                 <div class="task">
                     <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
                     <p class="task_text">HELLO <BR> WORLD!</p>
                     <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
                 </div>
+                </a>
+                <a href="/static/interpretator.html">
                 <div class="task">
                     <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
                     <p class="task_text">HELLO <BR> WORLD!</p>
                     <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
                 </div>
-            </div>
-            <div class="task_row">
-                <div class="task">
-                    <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
-                    <p class="task_text">HELLO <BR> WORLD!</p>
-                    <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
-                </div>
-                <div class="task">
-                    <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
-                    <p class="task_text">HELLO <BR> WORLD!</p>
-                    <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
-                </div>
+                </a>
             </div>
             <div class="task_row">
+                <a href="/static/interpretator.html">
                 <div class="task">
                     <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
                     <p class="task_text">HELLO <BR> WORLD!</p>
                     <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
                 </div>
+                </a>
+                <a href="/static/interpretator.html">
                 <div class="task">
                     <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
                     <p class="task_text">HELLO <BR> WORLD!</p>
                     <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
                 </div>
+                </a>
             </div>
             <div class="task_row">
+                <a href="/static/interpretator.html">
                 <div class="task">
                     <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
                     <p class="task_text">HELLO <BR> WORLD!</p>
                     <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
                 </div>
+                </a>
+                <a href="/static/interpretator.html">
                 <div class="task">
                     <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
                     <p class="task_text">HELLO <BR> WORLD!</p>
                     <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
                 </div>
+                </a>
             </div>
             <div class="task_row">
+                <a href="/static/interpretator.html">
                 <div class="task">
                     <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
                     <p class="task_text">HELLO <BR> WORLD!</p>
                     <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
                 </div>
+                </a>
+                <a href="/static/interpretator.html">
                 <div class="task">
                     <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
                     <p class="task_text">HELLO <BR> WORLD!</p>
                     <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
                 </div>
+                </a>
+            </div>
+            <div class="task_row">
+                <a href="/static/interpretator.html">
+                <div class="task">
+                    <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
+                    <p class="task_text">HELLO <BR> WORLD!</p>
+                    <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
+                </div>
+                </a>
+                <a href="/static/interpretator.html">
+                <div class="task">
+                    <img src="/img/task/изображение_2025-01-31_225846824 15.png" class="world" alt=":()">
+                    <p class="task_text">HELLO <BR> WORLD!</p>
+                    <p class="task_text2"> Классическое вводное упражнение. Просто скажите "Привет, Мир!".</p>
+                </div>
+                </a>
             </div>
         </div>
             
@@ -676,291 +759,327 @@
         </footer>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Элементы DOM
-            const container = document.getElementById("gallery");
-            const settingsBtn = document.getElementById('settings-btn');
-            const popupMenu = document.getElementById('popup-menu');
-            let selectedLanguage = null;
-            let isAnimating = false;
+<script>
+    window.addEventListener("DOMContentLoaded", loadProfileData);
+    // Элементы DOM
+    const gallery = document.getElementById("gallery");
+    const settingsBtn = document.getElementById('settings-btn');
+    const popupMenu = document.getElementById('popup-menu');
+    const tasksContainer = document.querySelector('.all_task');
+    let selectedLanguage = null;
 
-            // 1. Проверка авторизации
-            async function checkAuth() {
-                try {
-                    const response = await fetch('/api/check-auth', {
-                        credentials: 'include'
-                    });
+    // 1. Проверка авторизации
+    async function checkAuth() {
+        try {
+            const response = await fetch('/api/check-auth', {
+                credentials: 'include'
+            });
+            if (!response.ok) {
+                window.location.href = '/static/login.html';
+                return false;
+            }
+            return (await response.json()).authenticated;
+        } catch (error) {
+            console.error('Auth check failed:', error);
+            return false;
+        }
+    }
 
-                    if (!response.ok) {
-                        window.location.href = '/static/login.html';
-                        return false;
-                    }
+    // 2. Инициализация языков с бесконечной прокруткой
+    function initLanguages() {
+        selectedLanguage = localStorage.getItem('selectedLanguage') || 'Python';
+        const originalItems = Array.from(document.querySelectorAll('.image-wrapper'));
 
-                    const data = await response.json();
-                    return data.authenticated;
-                } catch (error) {
-                    console.error('Auth check failed:', error);
-                    return false;
+        // Очищаем галерею
+        gallery.innerHTML = '';
+
+        // Создаем 5 копий оригинальных элементов (для бесконечного эффекта)
+        for (let i = 0; i < 5; i++) {
+            originalItems.forEach(item => {
+                const clone = item.cloneNode(true);
+                gallery.appendChild(clone);
+            });
+        }
+
+        // Центрируем выбранный язык
+        setTimeout(() => {
+            const items = Array.from(document.querySelectorAll('.image-wrapper'));
+            const targetItem = items.find(item =>
+                item.querySelector('img').alt === selectedLanguage
+            ) || items[Math.floor(items.length / 2)];
+
+            scrollToItem(targetItem);
+        }, 100);
+    }
+
+    // Прокрутка к конкретному элементу
+    function scrollToItem(item) {
+        const galleryWidth = gallery.offsetWidth;
+        const itemLeft = item.offsetLeft;
+        const itemWidth = item.offsetWidth;
+
+        gallery.scrollLeft = itemLeft - (galleryWidth / 2) + (itemWidth / 2);
+        updateActiveLanguage();
+    }
+
+    // 3. Настройка бесконечного скролла
+    function setupLanguageScroll() {
+        let isScrolling = false;
+        let scrollTimeout;
+        const items = document.querySelectorAll('.image-wrapper');
+        const itemWidth = items[0]?.offsetWidth || 170;
+        const scrollThreshold = itemWidth * 2;
+
+        gallery.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (isScrolling) return;
+
+                updateActiveLanguage();
+
+                // Бесконечный скролл вправо
+                if (gallery.scrollLeft > gallery.scrollWidth - gallery.offsetWidth - scrollThreshold) {
+                    isScrolling = true;
+                    gallery.scrollLeft -= itemWidth * 5;
+                    setTimeout(() => isScrolling = false, 100);
                 }
-            }
-
-            // 2. Инициализация языков с круговой прокруткой
-            function initLanguages() {
-                selectedLanguage = localStorage.getItem('selectedLanguage') || 'Python';
-
-                // Создаем клоны для бесшовной прокрутки
-                const items = document.querySelectorAll('.image-wrapper');
-                container.innerHTML = '';
-                items.forEach(item => container.appendChild(item.cloneNode(true)));
-                items.forEach(item => container.appendChild(item.cloneNode(true)));
-
-                // Центрируем выбранный язык
-                setTimeout(() => {
-                    const activeItem = Array.from(document.querySelectorAll('.image-wrapper'))
-                        .find(w => w.querySelector('img').alt === selectedLanguage);
-                    if (activeItem) {
-                        activeItem.classList.add('active');
-                        container.scrollLeft = activeItem.offsetLeft - (container.offsetWidth / 2) + (activeItem.offsetWidth / 2);
-                    }
-                }, 100);
-            }
-
-            // 3. Обработчик выбора языка
-            function setupLanguageSelection() {
-                container.addEventListener('click', function(e) {
-                    const clickedWrapper = e.target.closest('.image-wrapper');
-                    if (!clickedWrapper || isAnimating) return;
-
-                    isAnimating = true;
-                    const languageImg = clickedWrapper.querySelector('img');
-                    const newLanguage = languageImg.alt;
-
-                    document.querySelectorAll('.image-wrapper').forEach(w => {
-                        w.classList.remove('active');
-                    });
-
-                    clickedWrapper.classList.add('active');
-                    selectedLanguage = newLanguage;
-                    localStorage.setItem('selectedLanguage', selectedLanguage);
-
-                    const scrollPos = clickedWrapper.offsetLeft - (container.offsetWidth / 2) + (clickedWrapper.offsetWidth / 2);
-
-                    container.scrollTo({
-                        left: scrollPos,
-                        behavior: 'smooth'
-                    });
-
-                    setTimeout(() => {
-                        loadTasksForLanguage(selectedLanguage);
-                        isAnimating = false;
-                    }, 500);
-                });
-
-                // Обработчик бесконечной прокрутки
-                container.addEventListener('scroll', function() {
-                    const scrollWidth = container.scrollWidth / 3;
-                    if (container.scrollLeft >= scrollWidth * 2) {
-                        container.scrollLeft -= scrollWidth;
-                    } else if (container.scrollLeft <= 0) {
-                        container.scrollLeft += scrollWidth;
-                    }
-                    updateActiveLanguage();
-                });
-            }
-
-            function updateActiveLanguage() {
-                const center = container.scrollLeft + container.offsetWidth / 2;
-
-                document.querySelectorAll('.image-wrapper').forEach(wrapper => {
-                    const wrapperCenter = wrapper.offsetLeft + wrapper.offsetWidth / 2;
-                    if (Math.abs(wrapperCenter - center) < wrapper.offsetWidth / 2) {
-                        wrapper.classList.add('active');
-                        selectedLanguage = wrapper.querySelector('img').alt;
-                        localStorage.setItem('selectedLanguage', selectedLanguage);
-                    } else {
-                        wrapper.classList.remove('active');
-                    }
-                });
-            }
-
-            // 4. Загрузка задач
-            async function loadTasksForLanguage(language) {
-                const tasksContainer = document.querySelector('.all_task');
-
-                try {
-                    // Показываем индикатор загрузки ТОЛЬКО в контейнере задач
-                    tasksContainer.innerHTML = `
-                        <div class="loading-spinner">
-                            <div class="spinner"></div>
-                            <p>Загрузка задач для ${language}...</p>
-                        </div>
-                    `;
-
-                    const response = await fetch(`/api/tasks?language=${encodeURIComponent(language)}`, {
-                        credentials: 'include'
-                    });
-
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-                    const data = await response.json();
-                    const tasks = data.tasks || data;
-                    renderTasks(tasks || []);
-
-                } catch (error) {
-                    console.error('Ошибка загрузки задач:', error);
-
-                    // Вставляем сообщение об ошибке в контейнер задач, сохраняя остальной интерфейс
-                    tasksContainer.innerHTML = `
-                        <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 20px;">
-                            <p>Произошла ошибка при загрузке задач</p>
-                            <button class="retry-btn" onclick="loadTasksForLanguage('${language}')">
-                                Попробовать снова
-                            </button>
-                        </div>
-                    `;
-
-                    // Добавляем заглушки для задач
-                    const totalSlots = 10;
-                    const templateTasks = Array.from(document.querySelectorAll('.task'));
-
-                    for (let i = 0; i < totalSlots / 2; i++) {
-                        const row = document.createElement('div');
-                        row.className = 'task_row';
-
-                        row.appendChild(createEmptyTaskElement(templateTasks[i*2] || templateTasks[0]));
-                        row.appendChild(createEmptyTaskElement(templateTasks[i*2+1] || templateTasks[1]));
-
-                        tasksContainer.appendChild(row);
-                    }
+                // Бесконечный скролл влево
+                else if (gallery.scrollLeft < scrollThreshold) {
+                    isScrolling = true;
+                    gallery.scrollLeft += itemWidth * 5;
+                    setTimeout(() => isScrolling = false, 100);
                 }
-            }
+            }, 50);
+        });
 
-            // 5. Отрисовка задач (всегда 10 мест, 5 рядов)
-            function renderTasks(tasks) {
-                const container = document.querySelector('.all_task');
-                container.innerHTML = '';
+        // Обработчик клика для выбора языка
+        gallery.addEventListener('click', (e) => {
+            const clickedWrapper = e.target.closest('.image-wrapper');
+            if (!clickedWrapper) return;
 
-                const tasksArray = Array.isArray(tasks) ? tasks : [tasks];
-                const totalSlots = 10; // Всего мест для задач
+            // Получаем имя языка из dataset
+            const languageName = clickedWrapper.dataset.langName;
+            if (!languageName) return;
 
-                // Используем существующие элементы из HTML как шаблоны
-                const templateTasks = Array.from(document.querySelectorAll('.task'));
+            selectedLanguage = languageName;
+            localStorage.setItem('selectedLanguage', selectedLanguage);
 
-                for (let i = 0; i < totalSlots / 2; i++) {
-                    const row = document.createElement('div');
-                    row.className = 'task_row';
+            // Прокручиваем к центру с анимацией
+            smoothScrollToItem(clickedWrapper);
+        });
+    }
 
-                    // Первая задача в ряду
-                    const task1 = tasksArray[i*2];
-                    row.appendChild(task1 ? createTaskElement(task1) : createEmptyTaskElement(templateTasks[i*2] || templateTasks[0]));
+    // 4. Обновление активного языка
+    function updateActiveLanguage() {
+        const center = gallery.scrollLeft + gallery.offsetWidth / 2;
+        let newActive = null;
 
-                    // Вторая задача в ряду
-                    const task2 = tasksArray[i*2+1];
-                    row.appendChild(task2 ? createTaskElement(task2) : createEmptyTaskElement(templateTasks[i*2+1] || templateTasks[1]));
+        document.querySelectorAll('.image-wrapper').forEach(wrapper => {
+            const wrapperCenter = wrapper.offsetLeft + wrapper.offsetWidth / 2;
+            const distance = Math.abs(wrapperCenter - center);
 
-                    container.appendChild(row);
-                }
-            }
-
-            // 6. Создание элемента задачи
-            function createTaskElement(task) {
-                const taskElement = document.createElement('div');
-                taskElement.className = 'task active-task';
-                taskElement.innerHTML = `
-                    <img src="${task.logo_url || '/img/task/изображение_2025-01-31_225846824 15.png'}" class="world" alt="${task.title || 'Задача'}">
-                    <p class="task_text">${(task.title || 'HELLO WORLD').toUpperCase()}</p>
-                    <p class="task_text2">${task.short_description || 'Описание задачи'}</p>
-                `;
-
-                taskElement.addEventListener('click', () => {
-                    const lang = localStorage.getItem('selectedLanguage') || 'Python';
-                    window.location.href = `/static/interpretator.html?task_id=${task.id}&lang=${encodeURIComponent(lang)}`;
-                });
-
-                return taskElement;
-            }
-
-            // 7. Создание неактивной задачи на основе существующего шаблона
-            function createEmptyTaskElement(template) {
-                const emptyTask = template.cloneNode(true);
-                emptyTask.className = 'task inactive-task';
-                emptyTask.onclick = null;
-                return emptyTask;
-            }
-
-            // 8. Настройка всплывающего меню
-            function setupPopupMenu() {
-                settingsBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    popupMenu.classList.toggle('active');
-                });
-
-                document.addEventListener('click', function() {
-                    popupMenu.classList.remove('active');
-                });
-
-                popupMenu.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-            }
-
-            // Инициализация
-            if (await checkAuth()) {
-                initLanguages();
-                setupLanguageSelection();
-                setupPopupMenu();
-                loadTasksForLanguage(selectedLanguage);
+            if (distance < wrapper.offsetWidth / 2) {
+                wrapper.classList.add('active');
+                newActive = wrapper.dataset.langName;
+            } else {
+                wrapper.classList.remove('active');
             }
         });
 
-        // Глобальная функция для повторных попыток
-        window.loadTasksForLanguage = async function(language) {
-            const tasksContainer = document.querySelector('.all_task');
+        if (newActive && newActive !== selectedLanguage) {
+            selectedLanguage = newActive;
+            localStorage.setItem('selectedLanguage', selectedLanguage);
+        }
+    }
 
-            try {
-                tasksContainer.innerHTML = `<div class="loading-spinner"><div class="spinner"></div></div>`;
+    // 5. Загрузка задач из БД
+    async function loadAllTasks() {
+        try {
+            tasksContainer.innerHTML = `
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Загрузка задач...</p>
+                </div>
+            `;
 
-                const response = await fetch(`/api/tasks?language=${encodeURIComponent(language)}`, {
-                    credentials: 'include'
+            const response = await fetch('/api/tasks', {
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (!data || !data.tasks || data.tasks.length === 0) {
+                throw new Error('Нет задач в базе данных');
+            }
+
+            renderTasks(data.tasks);
+
+        } catch (error) {
+            console.error('Ошибка загрузки задач:', error);
+            renderErrorState(error.message);
+        }
+    }
+
+    // 6. Отрисовка задач
+    function renderTasks(tasks) {
+        tasksContainer.innerHTML = '';
+
+        if (tasks.length < 10) {
+            tasksContainer.innerHTML += `
+                <div class="warning-message">
+                    <p>В базе данных меньше 10 задач (найдено: ${tasks.length})</p>
+                </div>
+            `;
+        }
+
+        // Создаем строки по 2 задачи в каждой
+        for (let i = 0; i < tasks.length; i += 2) {
+            const row = document.createElement('div');
+            row.className = 'task_row';
+
+            // Первая задача в ряду
+            if (tasks[i]) {
+                row.appendChild(createTaskElement(tasks[i]));
+            }
+
+            // Вторая задача в ряду (или пустой блок для выравнивания)
+            if (tasks[i + 1]) {
+                row.appendChild(createTaskElement(tasks[i + 1]));
+            } else {
+                // Добавляем пустой блок для выравнивания
+                const emptyTask = document.createElement('div');
+                emptyTask.className = 'task empty';
+                row.appendChild(emptyTask);
+            }
+
+            tasksContainer.appendChild(row);
+        }
+    }
+
+    // 7. Создание элемента задачи
+    function createTaskElement(task) {
+        const element = document.createElement('div');
+        element.className = 'task active-task';
+
+        // Форматируем описание задачи
+        const shortDescription = task.short_description || task.description || 'Описание появится скоро';
+        const truncatedDescription = shortDescription.length > 100
+            ? shortDescription.substring(0, 100) + '...'
+            : shortDescription;
+
+        element.innerHTML = `
+            <img src="${task.logo_url || '/img/task/Python.png'}"
+                 class="world"
+                 alt="${task.title || 'Задача'}">
+            <p class="task_text">${(task.title || 'НОВАЯ ЗАДАЧА').toUpperCase()}</p>
+            <p class="task_text2">${truncatedDescription}</p>
+        `;
+
+        element.onclick = () => {
+            saveUserSelection(task.id, selectedLanguage)
+                .then(() => {
+                    window.location.href = `/static/interpretator.html?task_id=${task.id}&lang=${selectedLanguage}`;
+                })
+                .catch(error => {
+                    console.error('Ошибка сохранения выбора:', error);
+                    window.location.href = `/static/interpretator.html?task_id=${task.id}&lang=${selectedLanguage}`;
                 });
+        };
 
-                if (!response.ok) throw new Error('Ошибка загрузки');
+        return element;
+    }
+
+    // 8. Сохранение выбора пользователя
+    async function saveUserSelection(taskId, language) {
+        try {
+            const response = await fetch('/api/save-selection', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    task_id: taskId,
+                    language: language
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка сохранения выбора');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Ошибка:', error);
+            throw error;
+        }
+    }
+
+    // 9. Отрисовка состояния ошибки
+    function renderErrorState(message = 'Произошла ошибка при загрузке задач') {
+        tasksContainer.innerHTML = `
+            <div class="error-message">
+                <p>${message}</p>
+                <button class="retry-btn">Попробовать снова</button>
+            </div>
+        `;
+        tasksContainer.querySelector('.retry-btn').onclick = loadAllTasks;
+    }
+
+    // 10. Настройка всплывающего меню
+    function setupPopupMenu() {
+        settingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            popupMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => popupMenu.classList.remove('active'));
+        popupMenu.addEventListener('click', (e) => e.stopPropagation());
+    }
+
+    // Инициализация при загрузке страницы
+    async function init() {
+        if (await checkAuth()) {
+            initLanguages();
+            setupLanguageScroll();
+            setupPopupMenu();
+            loadAllTasks();
+        }
+    }
+
+    // Загрузка аватара
+        async function loadProfileData() {
+            try {
+                const response = await fetch("/api/profile/data", {credentials: 'include'});
+
+                if (response.status === 401) {
+                    window.location.href = "/static/login.html";
+                    return;
+                }
 
                 const data = await response.json();
-                const tasks = data.tasks || data;
 
-                // Отрисовываем задачи (даже если их нет)
-                const container = document.querySelector('.all_task');
-                container.innerHTML = '';
+                if (data.success) {
+                    // Обновляем данные на странице
+                    document.getElementById("logo2").src = data.avatar;
 
-                const tasksArray = Array.isArray(tasks) ? tasks : [tasks];
-                const totalSlots = 10;
-                const templateTasks = Array.from(document.querySelectorAll('.task'));
-
-                for (let i = 0; i < totalSlots / 2; i++) {
-                    const row = document.createElement('div');
-                    row.className = 'task_row';
-
-                    const task1 = tasksArray[i*2];
-                    row.appendChild(task1 ? createTaskElement(task1) : createEmptyTaskElement(templateTasks[i*2] || templateTasks[0]));
-
-                    const task2 = tasksArray[i*2+1];
-                    row.appendChild(task2 ? createTaskElement(task2) : createEmptyTaskElement(templateTasks[i*2+1] || templateTasks[1]));
-
-                    container.appendChild(row);
-                }
+                    // Устанавливаем уровень
+                        const levelRadio = document.querySelector(`input[name="level"][value="${data.jms}"]`);
+                        if (levelRadio) levelRadio.checked = true;
+                } else {
+                        showNotification("Ошибка загрузки данных профиля", 'error');
+                    }
             } catch (error) {
-                tasksContainer.innerHTML = `
-                    <div class="error-message">
-                        <p>Ошибка при загрузке задач</p>
-                        <button class="retry-btn" onclick="window.loadTasksForLanguage('${language}')">
-                            Повторить
-                        </button>
-                    </div>
-                `;
+                console.error("Ошибка сети:", error);
             }
-        };
-    </script>
+        }
+
+    // Запускаем инициализацию
+    init();
+</script>
 </body>
 </html>

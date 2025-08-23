@@ -211,7 +211,7 @@
             clearInterval(animationInterval);
             let frame = startFrame;
             animationInterval = setInterval(() => {
-                character.src = `../img/Сова пнг без фона/${frame}.png`;
+                character.src = `/img/Сова пнг без фона/${frame}.png`;
                 frame++;
                 if (frame > endFrame) {
                     clearInterval(animationInterval);
@@ -228,11 +228,11 @@
             if (event.inputType === "deleteContentBackward") {
                 if (currentFrame > 5) {
                     currentFrame--;
-                    character.src = `../img/Сова пнг без фона/${currentFrame}.png`;
+                    character.src = `/img/Сова пнг без фона/${currentFrame}.png`;
                 }
             } else {
                 if (currentFrame < 26) {
-                    character.src = `../img/Сова пнг без фона/${currentFrame}.png`;
+                    character.src = `/img/Сова пнг без фона/${currentFrame}.png`;
                     currentFrame++;
                 }
             }
@@ -253,15 +253,15 @@
         });
 
         input2.addEventListener('input', function() {
-            character.src = `../img/Сова пнг без фона/32.png`;
+            character.src = `/img/Сова пнг без фона/32.png`;
         });
 
         input2.addEventListener('focus', function() {
-            character.src = `../img/Сова пнг без фона/32.png`;
+            character.src = `/img/Сова пнг без фона/32.png`;
         });
 
         input2.addEventListener('blur', function() {
-            character.src = "../img/Сова пнг без фона/1.png";
+            character.src = "/img/Сова пнг без фона/1.png";
         });
 
         async function login() {
