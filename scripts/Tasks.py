@@ -75,7 +75,8 @@ async def get_tasks(request: Request):
                 input_example,
                 output_example,
                 difficulty,
-                base_experience
+                base_experience,
+                logo_url
             FROM tasks
             ORDER BY difficulty, title
         """)
@@ -104,7 +105,7 @@ async def get_task_logo(task_id: int, request: Request):
     db = Database()
     try:
         cursor = db.connection.cursor()
-        cursor.execute("SELECT logoUrl FROM tasks WHERE id = %s", (task_id,))
+        cursor.execute("SELECT Logo_url FROM tasks WHERE id = %s", (task_id,))
         logo_data = cursor.fetchone()
 
         if not logo_data or not logo_data[0]:
