@@ -29,15 +29,15 @@
             background-clip: padding-box;
             width: 766px;
             height: 842px;
-            margin-top: 3%;
-            margin-left: 1%;
+            margin-top: 3.1%;
+            margin-left: 0.54%;
         }
 
         .animation-container::before {
             width: 766px;
             height: 842px;
-            margin-top: 4%;
-            margin-left: 30.4%;
+            margin-top: 3.45%;
+            margin-left: 30%;
             content: "";
             position: absolute;
             inset: 0;
@@ -157,7 +157,7 @@
             cursor: pointer;
         }
         .TEXT {
-            margin-top: 22%;
+            margin-top: 7%;
             margin-left: -24%;
             width: 475px;
             height: 29px;
@@ -172,7 +172,7 @@
             height: 64px;
         }
         .message {
-            margin-top: 10px;
+            margin-top: -20px;
             font-size: 14px;
         }
 
@@ -265,7 +265,7 @@
                     <img src="/img/Сова пнг без фона/padlock 1.svg" class="icon_lock">
                     <input class="field-input" id="input3" type="password" placeholder="Подтвердите ваш пароль" />
                 </div>
-                <p id="password-match" style="color: #ff4444; font-size: 12px; margin-top: 5px; display: none;">Пароли не совпадают</p>
+                <p id="password-match" style="color: #ff4444; font-size: 12px; margin-top: -25px; display: none;">Пароли не совпадают</p>
             </div>
 
             <button type="button" class="btn" onclick="register()">Регистрация</button>
@@ -425,11 +425,11 @@
                 return;
             }
 
-            if (password !== confirmPassword) {
-                message.textContent = "Пароли не совпадают";
-                message.style.color = "red";
-                return;
-            }
+<!--            if (password !== confirmPassword) {-->
+<!--                message.textContent = "Пароли не совпадают";-->
+<!--                message.style.color = "red";-->
+<!--                return;-->
+<!--            }-->
 
             try {
                 const response = await fetch("/api/register", {
@@ -468,6 +468,7 @@
             } catch (error) {
                 message.textContent = "Ошибка соединения с сервером";
                 message.style.color = "red";
+
                 console.error("Ошибка регистрации:", error);
             }
         }

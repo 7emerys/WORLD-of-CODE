@@ -86,6 +86,6 @@ async def read_page(page_name: str):
         page_name += ".html"
     file_path = os.path.join(static_dir, page_name)
     if os.path.exists(file_path):
-        with open(file_path) as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             return HTMLResponse(content=f.read(), status_code=200)
     return JSONResponse(status_code=404, content={"detail": "Not found"})
