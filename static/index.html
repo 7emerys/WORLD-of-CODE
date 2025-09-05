@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Word of CODE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid #fff;
+            transition: transform 0.3s ease;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.1);
+        }
+        
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 150px;
+            z-index: 1000;
+            margin-top: 10px;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            color: #333;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <main class="for_animated">
+            <header>
+                <div class="header-container">
+                    <img src="/img/worldofcode.png" alt="Word of CODE" class="woc">
+                    <div class="auth-buttons" id="authButtons">
+                        <!-- Кнопки будут заменены на аватарку при авторизации -->
+                        <button class="register" type="button" onclick="location.href='register.html'">Регистрация</button>
+                        <button class="login" type="button" onclick="location.href='login.html'">Войти</button>
+                    </div>
+                </div>
+            </header>
+
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="welcome">Добро пожаловать!<br>В мир программирования</h1>
+                    <p class="about_website">Веб-приложение для изучения программирования и решения практических задач. Поднимите свои навыки на новый уровень!</p>
+                    <button class="start" type="button" id="startButton">Начать</button>
+                </div>
+                <img src="/img/Browser.png" alt="Браузер" class="Browser">
+            </section>
+
+            <section class="features-section">
+                <div class="section-title">
+                    <h2 class="welcome2">ВЕБ-ПРИЛОЖЕНИЕ ПО ПРОГРАММИРОВАНИЮ МОЖЕТ БЫТЬ ИСПОЛЬЗОВАНО ДЛЯ РАЗЛИЧНЫХ ЦЕЛЕЙ, В ТОМ ЧИСЛЕ</h2>
+                </div>
+                
+                <div class="all_rectangle">
+                    <div class="rectangle">
+                        <p class="rectangle_text">Платформа может служить ресурсом для новичков, желающих изучить основы программирования. Она будет предоставлять курсы, уроки и материалы для самостоятельного изучения.</p>
+                    </div>
+                    <div class="rectangle">
+                        <p class="rectangle_text">Пользователи смогут практиковаться с реальными задачами, что поможет им улучшить свои навыки и уверенность в кодировании.</p>
+                    </div>
+                    <div class="rectangle">
+                        <p class="rectangle_text">Решение алгоритмических задач поможет пользователям развивать аналитическое мышление и умение находить нестандартные решения.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="social-section">
+                <h2 class="social-title">Наши соцсети</h2>
+                <div class="social-qr">
+                    <div class="qr-item">
+                        <div class="qr-frame"></div>
+                        <img src="/img/QR.jpg" alt="QR код VK" class="qr-image">
+                    </div>
+                    <div class="qr-item">
+                        <div class="qr-frame"></div>
+                        <img src="/img/QR.jpg" alt="QR код Telegram" class="qr-image">
+                    </div>
+                </div>
+            </section>
+
+     <section class="developers-section">
+    <h2 class="developers-title">Разработчики WORLD of CODE</h2>
+    <div class="developers-wrapper">
+        <div class="developers-container">
+            <div class="developer">
+                <p class="developer-letter">A</p>
+                <img src="/img/Ellipse 1.png" alt="Разработчик 1" class="developer-photo">
+            </div>
+            <div class="developer">
+                <p class="developer-letter">E</p>
+                <img src="/img/Ellipse 2.png" alt="Разработчик 2" class="developer-photo">
+            </div>
+            <div class="developer">
+                <p class="developer-letter">A</p>
+                <img src="/img/Ellipse 3.png" alt="Разработчик 3" class="developer-photo">
+            </div>
+            <div class="developer">
+                <p class="developer-letter">E</p>
+                <img src="/img/Ellipse 4.png" alt="Разработчик 4" class="developer-photo">
+            </div>
+        </div>
+        <p class="developers-description">Мы разработали сайт, который охватывает все аспекты обучения программированию. В рамках нашей работы мы создали интуитивно понятный интерфейс, также обеспечили работу с базами данных. Спасибо, что выбираете наш сайт!</p>
+    </div>
+</section>
+         </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 WORD OF CODE. Все права защищены.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Функция для проверки авторизации
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/check-auth', {
+                    credentials: 'include'
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Ошибка проверки авторизации:', error);
+                return { authenticated: false };
+            }
+        }
+
+        // Функция для отображения аватарки пользователя
+        function showUserProfile(userData) {
+            const authButtons = document.getElementById('authButtons');
+            
+            // Создаем элемент аватарки
+            const profileDiv = document.createElement('div');
+            profileDiv.className = 'user-profile';
+            
+            const profileDropdown = document.createElement('div');
+            profileDropdown.className = 'profile-dropdown';
+            
+            const avatarImg = document.createElement('img');
+            avatarImg.className = 'user-avatar';
+            avatarImg.src = userData.avatar || '/img/default-avatar.png';
+            avatarImg.alt = 'Аватар пользователя';
+            avatarImg.onclick = function() {
+                document.getElementById('dropdownMenu').classList.toggle('show');
+            };
+            
+            const dropdownMenu = document.createElement('div');
+            dropdownMenu.id = 'dropdownMenu';
+            dropdownMenu.className = 'dropdown-menu';
+            
+            // Элементы выпадающего меню
+            const profileLink = document.createElement('a');
+            profileLink.className = 'dropdown-item';
+            profileLink.href = '/static/profile.html';
+            profileLink.textContent = 'Профиль';
+            
+            const divider = document.createElement('div');
+            divider.className = 'dropdown-divider';
+            
+            const logoutBtn = document.createElement('a');
+            logoutBtn.className = 'dropdown-item';
+            logoutBtn.href = '#';
+            logoutBtn.textContent = 'Выйти';
+            logoutBtn.onclick = function(e) {
+                e.preventDefault();
+                logout();
+            };
+            
+            dropdownMenu.appendChild(profileLink);
+            dropdownMenu.appendChild(divider);
+            dropdownMenu.appendChild(logoutBtn);
+            
+            profileDropdown.appendChild(avatarImg);
+            profileDropdown.appendChild(dropdownMenu);
+            profileDiv.appendChild(profileDropdown);
+            
+            // Заменяем кнопки на аватарку
+            authButtons.innerHTML = '';
+            authButtons.appendChild(profileDiv);
+        }
+
+        // Функция для выхода из системы
+        async function logout() {
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                window.location.reload();
+            } catch (error) {
+                console.error('Ошибка выхода:', error);
+            }
+        }
+
+        // Закрытие выпадающего меню при клике вне его
+        document.addEventListener('click', function(event) {
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            const avatarImg = document.querySelector('.user-avatar');
+            
+            if (dropdownMenu && dropdownMenu.classList.contains('show') && 
+                !dropdownMenu.contains(event.target) && 
+                !avatarImg.contains(event.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
+        // Основная функция инициализации
+        document.addEventListener('DOMContentLoaded', async function() {
+            const authData = await checkAuth();
+            
+            if (authData.authenticated && authData.user) {
+                // Пользователь авторизован - показываем аватарку
+                showUserProfile(authData.user);
+            }
+            
+            // Обработчик кнопки "Начать"
+            document.getElementById('startButton').addEventListener('click', async function() {
+                const authData = await checkAuth();
+                if (authData.authenticated) {
+                    window.location.href = '/static/tasks.html';
+                } else {
+                    if (authData.message === "Токен истёк") {
+                        alert("Ваша сессия истекла. Авторизуйтесь снова.");
+                    }
+                    window.location.href = '/static/login.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

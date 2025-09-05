@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Решение задач</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <style>
+        * {
+            font-family: 'Montserrat Alternates', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+            background-image: url('../img/Frame 28.png');
+            background-size: cover;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            z-index: 1000;
+        }
+        
+        .logo {
+            width: 88px;
+            height: 88px;
+        }
+        
+        .settings-icon {
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 10px;
+        }
+        
+        .header-controls {
+            position: relative;
+        }
+        
+        .popup {
+            position: absolute;
+            top: calc(100% + 15px);
+            right: 0;
+            background-color: rgba(22, 25, 28, 0.95);
+            border-radius: 15px;
+            padding: 15px;
+            width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(-10px);
+            border: 2px solid rgba(189, 238, 96, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .popup-item {
+            display: block;
+            padding: 12px 15px;
+            margin: 5px 0;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-item:hover {
+            background-color: rgba(189, 238, 96, 0.2);
+            transform: translateX(5px);
+        }
+
+        .container {
+            flex: 1;
+            padding: 60px;
+            margin-top: 100px;
+            display: flex;
+            justify-content: space-between;
+            gap: 60px;
+            height: calc(100vh - 100px); 
+            overflow: hidden;
+        }
+
+        /* Общие стили для контейнеров с градиентной рамкой */
+        .task-container,
+        .solution-container,
+        .error-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            background-color: rgba(22, 25, 28, 0.66);
+        }
+
+        .task-container::before{
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(45deg, #BDEE60, #005436);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+        }
+        .solution-container::before,
+        .error-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(45deg,#005436, #BDEE60);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+        }
+
+        .task-container {
+            width: 900px;
+            height: 100%;
+        }
+
+        .side-column {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 900px;
+            height: 100%;
+        }
+
+        .solution-container {
+            width: 100%;
+            height: 50%;
+            position: relative; /* Добавлено */
+        }
+
+        .error-container {
+            width: 100%;
+            height: 35%;
+        }
+
+        .btn-all {
+            display: flex;
+            gap: 10%;
+            justify-content: end;
+        }
+        
+        .btn-start {
+            width: 205px;
+            height: 45px;
+            background-color: transparent;
+            color: white;
+            border: 1px solid #ffffff;
+            border-radius: 32px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        .btn-back {
+            width: 205px;
+            height: 45px;
+            background-color: transparent;
+            color: white;
+            border: 1px solid #ffffff;
+            border-radius: 32px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .CodeMirror {
+            height: 100%;
+            font-family: 'Montserrat Alternates', sans-serif;
+            font-size: 16px;
+        }
+
+        .test-passed {
+            color: #BDEE60;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            background-color: rgba(0, 84, 54, 0.3);
+        }
+
+        .test-failed {
+            color: #ff6b6b;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            background-color: rgba(84, 0, 0, 0.3);
+        }
+        
+        .fullscreen-textarea {
+            width: 100%;
+            height: 100%; /* Исправлено */
+            padding: 20px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            resize: none;
+            background-color: transparent;
+            color: white;
+            font-family: 'Montserrat Alternates', sans-serif;
+            position: absolute; /* Добавлено */
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/static/index.html">
+            <img src="/img/worldofcode.png" class="logo" alt="Логотип">
+        </a>
+        <div class="header-controls">
+            <img src="/img/настройки/logo.png" class="settings-icon" id="settings-btn" alt="Настройки">
+            <nav class="popup" id="popup-menu" aria-label="Меню настроек">
+                <a href="setting.html" class="popup-item settings">
+                    <i class="fas fa-cog"></i> Настройки
+                </a>
+                <a href="profile.html" class="popup-item profile">
+                    <i class="fas fa-user"></i> Профиль
+                </a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="task-container"></div>
+        <div class="side-column">
+            <div class="solution-container">
+              <textarea class="fullscreen-textarea" placeholder="Начните вводить текст здесь..."></textarea>
+            </div>
+            <div class="error-container"></div>
+            <div class="btn-all">
+                <button class="btn-start">Запустить</button>
+                <button class="btn-back">Назад</button>
+            </div>
+        </div>
+    </main>
+    <!-- СЕНЯ CodeMirror  НУЖЕН ИМБА -->
+<!-- CodeMirror 
+CodeMirror 
+CodeMirror  -->
+
+    <script>
+        // Скрипт для работы popup меню
+        document.getElementById('settings-btn').addEventListener('click', function() {
+            const popup = document.getElementById('popup-menu');
+            popup.classList.toggle('active');
+        });
+
+        // Закрытие popup при клике вне его
+        document.addEventListener('click', function(event) {
+            const popup = document.getElementById('popup-menu');
+            const settingsBtn = document.getElementById('settings-btn');
+            
+            if (!popup.contains(event.target) && !settingsBtn.contains(event.target)) {
+                popup.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+    <script>
+        let codeEditor;
+        let currentTask;
+        let currentLanguage;
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Проверка авторизации
+            const authResponse = await fetch('/api/check-auth', {
+                credentials: 'include'
+            });
+            const authData = await authResponse.json();
+
+            if (!authData.authenticated) {
+                window.location.href = '/static/login.html';
+                return;
+            }
+
+            // При получении задачи в interpretator.html:
+            const urlParams = new URLSearchParams(window.location.search);
+            const taskId = urlParams.get('task_id');
+            const language = urlParams.get('lang'); // Добавляем параметр языка
+
+            if (!taskId) {
+                alert('Задача не выбрана');
+                window.location.href = '/static/tasks.html';
+                return;
+            }
+
+            // Загружаем тест-кейсы для выбранного языка
+            const response = await fetch(`/api/tasks/${taskId}/test-cases?language=${language}`, {
+                credentials: 'include'
+            });
+
+                if (!response.ok) {
+                    throw new Error('Ошибка загрузки задачи');
+                }
+
+                currentTask = await response.json();
+                currentLanguage = currentTask.language;
+
+                // Отображаем задачу
+                displayTaskInfo();
+
+                // Настройка редактора кода
+                setupCodeEditor();
+
+            } catch (error) {
+                console.error('Ошибка загрузки задачи:', error);
+                document.querySelector('.error-container').innerHTML = `
+                    <p class="test-failed">Ошибка: ${error.message}</p>
+                `;
+            }
+
+            // Обработчик кнопки "Запустить"
+            document.querySelector('.btn-start').addEventListener('click', executeCode);
+
+            // Обработчик кнопки "Назад"
+            document.querySelector('.btn-back').addEventListener('click', () => {
+                window.location.href = '/static/tasks.html';
+            });
+        });
+
+        function displayTaskInfo() {
+            const taskContainer = document.querySelector('.task-container');
+            taskContainer.innerHTML = `
+                <h2>${currentTask.title}</h2>
+                <p><strong>Описание:</strong> ${currentTask.full_description}</p>
+                ${currentTask.input_example ? `<p><strong>Пример ввода:</strong> ${currentTask.input_example}</p>` : ''}
+                ${currentTask.output_example ? `<p><strong>Пример вывода:</strong> ${currentTask.output_example}</p>` : ''}
+            `;
+        }
+
+        function setupCodeEditor() {
+            const editor = document.getElementById('code-editor');
+
+            // Определяем режим редактора в зависимости от языка
+            const mode = {
+                'Python': 'python',
+                'JavaScript': 'javascript',
+                'C++': 'text/x-c++src',
+                'Java': 'text/x-java',
+                'C#': 'text/x-csharp'
+            }[currentLanguage] || 'python';
+
+            codeEditor = CodeMirror.fromTextArea(editor, {
+                lineNumbers: true,
+                theme: 'dracula',
+                mode: mode,
+                indentUnit: 4,
+                lineWrapping: true
+            });
+
+            // Установим начальный код в зависимости от языка
+            const starterCode = {
+                'Python': 'def solution():\n    # Ваш код здесь\n    pass',
+                'JavaScript': 'function solution() {\n    // Ваш код здесь\n}',
+                'C++': '#include <iostream>\n\nint main() {\n    // Ваш код здесь\n    return 0;\n}',
+                'Java': 'public class Main {\n    public static void main(String[] args) {\n        // Ваш код здесь\n    }\n}',
+                'C#': 'using System;\n\nclass Program {\n    static void Main(string[] args) {\n        // Ваш код здесь\n    }\n}'
+            }[currentLanguage] || '';
+
+            codeEditor.setValue(starterCode);
+        }
+
+        async function executeCode() {
+            const code = codeEditor.getValue();
+
+            try {
+                document.querySelector('.error-container').innerHTML = '<p>Проверка кода...</p>';
+
+                const response = await fetch('/api/execute', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        task_id: currentTask.id,
+                        code: code,
+                        language: currentLanguage
+                    }),
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Ошибка сервера');
+                }
+
+                const result = await response.json();
+                checkTaskStatus(result.task_id);
+
+            } catch (error) {
+                console.error('Ошибка выполнения кода:', error);
+                document.querySelector('.error-container').innerHTML = `
+                    <p class="test-failed">Ошибка: ${error.message}</p>
+                `;
+            }
+        }
+
+        async function checkTaskStatus(taskId) {
+            const checkInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`/api/task-status/${taskId}`, {
+                        credentials: 'include'
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Ошибка проверки статуса');
+                    }
+
+                    const result = await response.json();
+
+                    if (result.status === 'completed') {
+                        clearInterval(checkInterval);
+                        displayResults(result);
+                        await saveSolution(result);
+                    } else if (result.status === 'error') {
+                        clearInterval(checkInterval);
+                        document.querySelector('.error-container').innerHTML = `
+                            <p class="test-failed">Ошибка: ${result.message}</p>
+                        `;
+                    }
+                } catch (error) {
+                    clearInterval(checkInterval);
+                    console.error('Ошибка проверки статуса:', error);
+                }
+            }, 1000);
+        }
+
+        function displayResults(result) {
+            const solutionContainer = document.querySelector('.solution-container');
+            const errorContainer = document.querySelector('.error-container');
+
+            solutionContainer.innerHTML = '<h3>Результаты тестирования:</h3>';
+            errorContainer.innerHTML = '';
+
+            result.results.forEach((testCase, index) => {
+                const testDiv = document.createElement('div');
+                testDiv.className = testCase.passed ? 'test-passed' : 'test-failed';
+                testDiv.innerHTML = `
+                    <p>Тест #${index + 1}: ${testCase.passed ? '✅' : '❌'}</p>
+                    ${testCase.input ? `<p>Ввод: ${testCase.input}</p>` : ''}
+                    <p>Ожидалось: ${testCase.expected}</p>
+                    <p>Получено: ${testCase.actual}</p>
+                `;
+                solutionContainer.appendChild(testDiv);
+
+                if (!testCase.passed) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'test-failed';
+                    errorDiv.innerHTML = `<p>Тест #${index + 1} не пройден</p>`;
+                    errorContainer.appendChild(errorDiv);
+                }
+            });
+        }
+
+        async function saveSolution(result) {
+            try {
+                const response = await fetch('/api/save-solution', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        task_id: currentTask.id,
+                        language: currentLanguage,
+                        code: codeEditor.getValue(),
+                        test_results: result.results,
+                        is_solved: result.passed
+                    }),
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Ошибка сохранения решения');
+                }
+            } catch (error) {
+                console.error('Ошибка сохранения решения:', error);
+            }
+        }
+    </script>
+</body>
+</html>

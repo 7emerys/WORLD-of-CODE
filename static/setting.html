@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap" rel="stylesheet">
+    <title>Настройки аккаунта</title>
+    <style>
+        * {
+            font-family: 'Montserrat Alternates', sans-serif;  
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            min-height: 100vh;
+            background-color: #000;
+            color: #fff;
+            background-image: url('../img/Frame 21.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            padding: 1rem;
+        }
+        .account-settings {
+            position: relative;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: white;
+        }
+        .account-settings h1 {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            margin-bottom: 1.5rem;
+        }
+        .btn_Profile, .btn_psw {
+            background-color: transparent;
+            color: #999999;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            display: block;
+            margin: 0 auto 0.8rem;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            width: fit-content;
+        }
+        .btn_Profile:hover, .btn_psw:hover {
+            color: #fff;
+        }
+        .center-container {
+            display: flex;
+            justify-content: center;
+            padding-top: 1rem;
+        }
+        .container {
+            width: min(90%, 423px);
+            min-height: auto;
+            background-color: transparent;
+            border-radius: 15px;
+            padding: 1.2rem;
+            color: #999999;
+            margin: 0 auto;
+        }
+        .header {
+            height: auto;
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            padding: 0.5rem;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+        .logo, .uploaded-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .delete_icon {
+            height: 15px;
+            margin-left: 5px;
+        }
+        .btn_delete {
+            background-color: transparent;
+            color: #999999;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .btn_delete:hover {
+            color: #fff;
+        }
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .upload-btn {
+            background-color: transparent;
+            color: #999999;
+            border-radius: 40px;
+            padding: 0.5rem 1rem;
+            border: 1px solid #999999;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .upload-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        #image-input {
+            display: none;
+        }
+        
+        /* Стили для полей ввода */
+        .pseudo-container {
+            width: 100%;
+            padding: 0.8rem;
+            position: relative;
+        }
+        .pseudo-label, .pseudo-label2, .pseudo-label3{
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .pseudo-label4{
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            margin-top: 5%;
+        }
+        .pseudo-label-text, .pseudo-label-text2, .pseudo-label-text3, .pseudo-label-text4 {
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+            color: #999999;
+            font-weight: bold;
+        }
+        .info-icon, .info-icon2, .info-icon3, .info-icon4 {
+            width: 16px;
+            height: 16px;
+            margin-left: 0.5rem;
+            filter: brightness(0.6);
+        }
+        .pseudo-input-wrapper, .pseudo-input-wrapper2, .pseudo-input-wrapper3, .pseudo-input-wrapper4 {
+            position: relative;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        .pseudo-input, .pseudo-input2, .pseudo-input3, .City_select {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            color: #999999;
+            background-color: rgba(22, 25, 28, 0.66);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .pseudo-input::placeholder, .pseudo-input2::placeholder {
+            color: #666;
+        }
+        .pseudo-input-border, .pseudo-input-border2, .pseudo-input-border3, .pseudo-input-border4 {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, #BDEE60, #005436);
+            z-index: 0;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 2px;
+        }
+        .pseudo-input2 {
+            height: 120px;
+        }
+        
+        /* Стили для выпадающих списков */
+        .language-select, .City_select {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            color: #999999;
+            background-color: rgba(22, 25, 28, 0.66);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        .language-select option, .City_select option {
+            background-color: rgba(14, 15, 17, 0.247);
+            color: #999999;
+        }
+        .select-wrapper, .city-select-wrapper {
+            position: relative;
+        }
+        .select-wrapper::after, .city-select-wrapper::after {
+            content: "▼";
+            font-size: 12px;
+            color: #999999;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        /* Стили для радио-кнопок */
+        .radio-group-vertical {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .radio-option-vertical {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            margin: 0 0.3rem;
+        }
+
+        .radio-option-vertical label {
+            color: #999999;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            font-weight: bold;
+            margin-top: 0.5rem;
+            order: 1;
+            margin-left: 0;
+            text-align: center;
+        }
+
+        .radio-option-vertical input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: clamp(25px, 8vw, 30px);
+            height: clamp(25px, 8vw, 30px);
+            border: 2px solid #999999;
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+            margin-bottom: 0;
+            margin-top: 10%;
+        }
+
+        .radio-option-vertical input[type="radio"]:checked {
+            border-color: #BDEE60;
+            background: radial-gradient(circle, #BDEE60 0%, #BDEE60 40%, transparent 50%);
+        }
+
+        .radio-option-vertical input[type="radio"]:focus {
+            box-shadow: 0 0 0 2px rgba(189, 238, 96, 0.5);
+        }
+        
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn_save, .btn_cancel, .btn_delet {
+            padding: 0.7rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            border: none;
+            width: 100%;
+        }
+        
+        .btn_save {
+            background-color: #0069FF;
+            color: #fff;
+        }
+        
+        .btn_cancel {
+            background-color: transparent;
+            color: #999999;
+            border: 1px solid #999999;
+        }
+        
+        .btn_delet {
+            background-color: #C84545;
+            color: #fff;
+        }
+
+        /* Стили для модального окна */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background-color: rgba(22, 25, 28, 0.9);
+            padding: 1.5rem;
+            border-radius: 10px;
+            width: min(90%, 350px);
+            text-align: center;
+            color: #fff;
+            position: relative;
+            border: 2px solid transparent;
+            border-image: linear-gradient(to bottom, #BDEE60, #005436);
+            border-image-slice: 1;
+        }
+
+        .modal-title {
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .modal-text {
+            margin-bottom: 1.5rem;
+            color: #999999;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .modal-btn-confirm {
+            background-color: #C84545;
+            color: #fff;
+        }
+
+        .modal-btn-cancel {
+            background-color: transparent;
+            color: #999999;
+            border: 1px solid #999999;
+        }
+
+        /* Медиа-запросы для адаптивности */
+        @media (min-width: 768px) {
+            body {
+                padding: 1.5rem;
+            }
+            
+            .account-settings {
+                position: absolute;
+                top: 3.5rem;
+                left: 5rem;
+                text-align: left;
+            }
+            
+            .btn_Profile, .btn_psw {
+                margin: 0 0 1rem 0;
+                text-align: left;
+            }
+            
+            .header {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 10%;
+            }
+            
+            .buttons-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .btn_save, .btn_cancel, .btn_delet {
+                width: auto;
+                flex: 1;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .account-settings {
+                left: 6rem;
+            }
+            
+            .container {
+                width: 423px;
+            }
+            
+            .pseudo-input2 {
+                height: 150px;
+            }
+            
+            .radio-option-vertical input[type="radio"] {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .image-container {
+                flex-direction: column;
+            }
+            
+            .radio-group-vertical {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .radio-option-vertical {
+                margin: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="account-settings">
+        <h1>Настройки аккаунта</h1>
+        <button class="btn_Profile" onclick="location.href='setting.html'">Изменить профиль</button>
+        <button class="btn_psw" onclick="location.href='setting_password.html'">Изменить пароль</button>
+    </div>
+    
+    <div class="center-container">
+        <div class="container">
+            <div class="header">
+                <div class="logo-container">
+                    <img id="logo" src="/img/настройки/logo.png" class="logo">
+                </div>
+                <div class="image-container">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                        <button class="upload-btn" id="upload-btn">
+                           Обновить
+                        </button>
+                        <button class="btn_delete" id="delete-btn">
+                            <img src="/img/настройки/delete_Icon.png" class="delete_icon">
+                            Удалить
+                        </button>
+                    </div>
+                    <input type="file" id="image-input" accept="image/*">
+                </div>
+            </div>
+            <div class="pseudo-container">
+                <div class="pseudo-label">
+                    <span class="pseudo-label-text">Псевдоним</span>
+                    <img src="/img/настройки/Info_icon.png" class="info-icon">
+                </div>
+                <div class="pseudo-input-wrapper">
+                    <div class="pseudo-input-border"></div>
+                    <input type="text" class="pseudo-input">
+                </div>
+
+                <div class="pseudo-label2">
+                    <span class="pseudo-label-text2">Краткая информация</span>
+                    <img src="/img/настройки/Info_icon.png" class="info-icon">
+                </div>
+                <div class="pseudo-input-wrapper2">
+                    <div class="pseudo-input-border2"></div>
+                    <input type="text" class="pseudo-input2">
+                </div>
+
+                <div class="pseudo-label3">
+                    <span class="pseudo-label-text3">Любимый язык</span>
+                    <img src="/img/настройки/Info_icon.png" class="info-icon">
+                </div>
+                <div class="pseudo-input-wrapper3">
+                    <div class="pseudo-input-border3"></div>
+                    <input type="text" class="language-select" maxlength="25">
+                </div>
+                
+                <div class="pseudo-label4">
+                    <span class="pseudo-label-text4">Выберите ваш уровень</span>
+                    <img src="/img/настройки/Info_icon.png" class="info-icon4">
+                </div>
+                <div class="radio-group-vertical">
+                    <div class="radio-option-vertical">
+                        <input type="radio" id="junior" name="level" value="junior" checked>
+                        <label for="junior">Junior</label>
+                    </div>
+                    <div class="radio-option-vertical">
+                        <input type="radio" id="middle" name="level" value="middle">
+                        <label for="middle">Middle</label>
+                    </div>
+                    <div class="radio-option-vertical">
+                        <input type="radio" id="senior" name="level" value="senior">
+                        <label for="senior">Senior</label>
+                    </div>
+                </div>
+
+                <div class="pseudo-label4">
+                    <span class="pseudo-label-text4">Город</span>
+                    <img src="/img/настройки/Info_icon.png" class="info-icon">
+                </div>
+                <div class="pseudo-input-wrapper4">
+                    <div class="pseudo-input-border4"></div>
+                    <input type="text" class="City_select" maxlength="25">
+                </div>
+
+                <div class="buttons-container">
+                    <button class="btn_save">Сохранить</button>
+                    <button class="btn_cancel">Отменить</button>
+                    <button class="btn_delet" id="delete-account-btn">Удалить аккаунт</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Удаление аккаунта</h3>
+            <p class="modal-text">Вы действительно хотите удалить аккаунт? Это действие нельзя будет отменить.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-confirm" id="confirm-delete">Да</button>
+                <button class="modal-btn modal-btn-cancel" id="cancel-delete">Нет</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+            // Элементы страницы
+            const imageInput = document.getElementById('image-input');
+            const uploadBtn = document.getElementById('upload-btn');
+            const deleteBtn = document.getElementById('delete-btn');
+            const logo = document.getElementById('logo');
+            const deleteAccountBtn = document.getElementById('delete-account-btn');
+            const deleteModal = document.getElementById('delete-modal');
+            const confirmDeleteBtn = document.getElementById('confirm-delete');
+            const cancelDeleteBtn = document.getElementById('cancel-delete');
+
+            // Функция для показа уведомлений
+            function showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.style.position = 'fixed';
+                notification.style.bottom = '20px';
+                notification.style.right = '20px';
+                notification.style.padding = '15px 20px';
+                notification.style.borderRadius = '5px';
+                notification.style.color = 'white';
+                notification.style.zIndex = '1000';
+                notification.style.transition = 'opacity 0.5s';
+
+                if (type === 'success') {
+                    notification.style.backgroundColor = '#4CAF50';
+                } else {
+                    notification.style.backgroundColor = '#F44336';
+                }
+
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 3000);
+            }
+
+            // Функция для проверки авторизации
+            async function checkAuth() {
+                try {
+                    const response = await fetch("/api/check-auth", {
+                        credentials: 'include'
+                    });
+                    return await response.json();
+                } catch (error) {
+                    console.error("Auth check failed:", error);
+                    return {authenticated: false};
+                }
+            }
+
+            // Загрузка данных профиля
+            async function loadProfileData() {
+                try {
+                    const response = await fetch("/api/profile/data", {
+                        credentials: 'include'
+                    });
+
+                    if (response.status === 401) {
+                        window.location.href = "/static/login.html";
+                        return;
+                    }
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        // Заполняем поля формы
+                        document.querySelector(".pseudo-input").value = data.username || '';
+                        document.querySelector(".pseudo-input2").value = data.bio || '';
+                        document.querySelector(".language-select").value = data.fav_lang || '';
+                        document.querySelector(".City_select").value = data.city || '';
+                        if (data.avatar) {
+                            document.getElementById("logo").src = data.avatar;
+                        }
+
+                        // Устанавливаем уровень
+                        const levelRadio = document.querySelector(`input[name="level"][value="${data.jms}"]`);
+                        if (levelRadio) levelRadio.checked = true;
+                    } else {
+                        showNotification("Ошибка загрузки данных профиля", 'error');
+                    }
+                } catch (error) {
+                    console.error("Ошибка загрузки данных:", error);
+                    showNotification("Ошибка загрузки данных профиля", 'error');
+                }
+            }
+
+            // Обработчик кнопки "Обновить" (аватар)
+            uploadBtn.addEventListener('click', function() {
+                imageInput.click();
+            });
+
+            imageInput.addEventListener('change', async function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const formData = new FormData();
+                    formData.append('avatar', e.target.files[0]);
+
+                    try {
+                        const response = await fetch("/api/profile/update-avatar", {
+                            method: "POST",
+                            credentials: 'include',
+                            body: formData
+                        });
+
+                        const result = await response.json();
+                        if (result.success) {
+                            document.getElementById("logo").src = result.avatar;
+                            showNotification("Аватар успешно обновлен", 'success');
+                        } else {
+                            showNotification("Ошибка: " + result.message, 'error');
+                        }
+                    } catch (error) {
+                        showNotification("Ошибка загрузки аватара", 'error');
+                        console.error(error);
+                    }
+                }
+            });
+
+            // Обработчик кнопки "Сохранить" (все данные, кроме аватара)
+            document.querySelector(".btn_save").addEventListener("click", async function() {
+                const formData = new FormData();
+                formData.append("username", document.querySelector(".pseudo-input").value);
+                formData.append("bio", document.querySelector(".pseudo-input2").value);
+                formData.append("fav_lang", document.querySelector(".language-select").value);
+                formData.append("city", document.querySelector(".City_select").value);
+                formData.append("level", document.querySelector('input[name="level"]:checked').value);
+
+                try {
+                    const response = await fetch("/api/profile/update", {
+                        method: "POST",
+                        credentials: 'include',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        showNotification("Данные профиля сохранены", 'success');
+                    } else {
+                        showNotification("Ошибка: " + result.message, 'error');
+                    }
+                } catch (error) {
+                    showNotification("Произошла ошибка при сохранении данных", 'error');
+                    console.error(error);
+                }
+            });
+
+            // Обработчик кнопки "Удалить" аватар
+            deleteBtn.addEventListener('click', async function() {
+                try {
+                    const response = await fetch("/api/profile/delete-avatar", {
+                        method: "POST",
+                        credentials: 'include'
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        document.getElementById("logo").src = "/img/настройки/logo.png";
+                        showNotification("Аватар удален", 'success');
+                    } else {
+                        showNotification("Ошибка: " + result.message, 'error');
+                    }
+                } catch (error) {
+                    showNotification("Ошибка удаления аватара", 'error');
+                    console.error(error);
+                }
+            });
+
+            // Обработчики модального окна удаления аккаунта
+            deleteAccountBtn.addEventListener('click', function() {
+                deleteModal.style.display = 'flex';
+            });
+
+            cancelDeleteBtn.addEventListener('click', function() {
+                deleteModal.style.display = 'none';
+            });
+
+            confirmDeleteBtn.addEventListener("click", async function() {
+                try {
+                    const response = await fetch("/api/profile/delete", {
+                        method: "POST",
+                        credentials: 'include'
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        window.location.href = "/static/login.html";
+                    } else {
+                        showNotification("Ошибка: " + result.message, 'error');
+                        deleteModal.style.display = 'none';
+                    }
+                } catch (error) {
+                    console.error("Ошибка:", error);
+                    showNotification("Произошла ошибка при удалении аккаунта", 'error');
+                    deleteModal.style.display = 'none';
+                }
+            });
+
+            // Инициализация
+            async function init() {
+                const auth = await checkAuth();
+                if (!auth.authenticated) {
+                    window.location.href = "/static/login.html";
+                    return;
+                }
+
+                await loadProfileData();
+            }
+
+            init();
+        });
+</script>
+</body>
+</html>
