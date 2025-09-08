@@ -3,7 +3,6 @@
 </p>
 
 <h1 align="center">World of Code</h1>
-https://github.com/7emerys/WORLD-of-CODE/blob/main/README.md
 <p align="center">
   <strong>Веб-платформа для решения алгоритмических задач на Python, C++, Java и JavaScript.</strong>
 </p>
