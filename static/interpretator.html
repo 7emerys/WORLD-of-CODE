@@ -279,28 +279,23 @@
         .CodeMirror-selected {
             background: rgba(189, 238, 96, 0.25) !important;
         }
-
-        /* ОБЩИЕ СТИЛИ ДЛЯ ВСЕХ ЯЗЫКОВ */
-        .cm-keyword { color: #ff79c6 !important; }      /* ключевые слова */
-        .cm-variable { color: #50fa7b !important; }     /* переменные */
+/* ОБЩИЕ СТИЛИ ДЛЯ ВСЕХ ЯЗЫКОВ */
+        .cm-keyword { color: #4c9b74 !important; }      /* ключевые слова */
+        .cm-variable { color: #a9b3ac !important; }     /* переменные */
         .cm-def { color: #50fa7b !important; }          /* определения */
-        .cm-string { color: #f1fa8c !important; }       /* строки */
+        .cm-string { color: #9aa526 !important; }       /* строки */
         .cm-comment { color: #6272a4 !important; }      /* комментарии */
-        .cm-number { color: #bd93f9 !important; }       /* числа */
+        .cm-number { color: #f993f0 !important; }       /* числа */
         .cm-operator { color: #ff79c6 !important; }     /* операторы */
         .cm-builtin { color: #8be9fd !important; }      /* встроенные функции */
         .cm-atom { color: #bd93f9 !important; }         /* true/false/null */
         .cm-property { color: #66d9ef !important; }     /* свойства объектов */
         .cm-variable-2 { color: #50fa7b !important; }   /* параметры */
-        .cm-variable-3 { color: #50fa7b !important; }   /* переменные уровня 3 */
-
-        /* СТИЛИ ДЛЯ ОСНОВНОГО ТЕКСТА И СКОБОК */
-        .cm { color: #f8f8f2 !important; }              /* основной цвет текста */
-        .cm-punctuation { color: #f8f8f2 !important; }  /* скобки (), [], {} и другие знаки препинания */
+        .cm-variable-3 { color: #a9b3ac !important; }   /* переменные уровня 3 */
 
         /* ЯЗЫКО-СПЕЦИФИЧНЫЕ СТИЛИ */
         /* Для HTML/XML */
-        .cm-tag { color: #ff79c6 !important; }          /* теги */
+        .cm-tag { color: #8b456d !important; }          /* теги */
         .cm-attribute { color: #50fa7b !important; }    /* атрибуты */
         .cm-bracket { color: #f8f8f2 !important; }      /* скобки <> */
 
@@ -316,7 +311,6 @@
         .cm-brace { color: #f8f8f2 !important; }        /* фигурные скобки {} */
         .cm-paren { color: #f8f8f2 !important; }        /* круглые скобки () */
         .cm-bracket { color: #f8f8f2 !important; }      /* квадратные скобки [] */   /* встроенные функции Python */
-
         /* КУРСОР */
         .CodeMirror-cursor {
             border-left: 2px solid #bdee60 !important;
@@ -428,7 +422,7 @@
         function styleBrackets() {
             const editorElement = document.querySelector('.CodeMirror');
             if (editorElement) {
-                editorElement.style.setProperty('color', '#f8f8f2', 'important');
+                editorElement.style.setProperty('color', '#a9b3ac', 'important');
             }
         }
         
