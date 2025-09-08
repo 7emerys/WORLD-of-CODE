@@ -4,7 +4,7 @@
 
 <h1 align="center">World of Code</h1>
 <p align="center">
-  <strong>Веб-платформа для решения алгоритмических задач на Python, C++, Java и JavaScript.</strong>
+  <strong>Веб-платформа для решения алгоритмических задач на Python, C++, C Sharp, Java и JavaScript.</strong>
 </p>
 
 <p align="center">
@@ -36,9 +36,9 @@
 
 ## 🛠 Стек технологий
 
-*   **Бэкенд:** [Python](https://www.python.org/) + [Flask](https://flask.palletsprojects.com/)
+*   **Бэкенд:** [Python](https://www.python.org/) + [FastAPI](fastapi.tiangolo.com)
 *   **Фронтенд:** HTML, CSS, JavaScript
-*   **База данных:** [SQLite](https://www.sqlite.org/)
+*   **База данных:** [MySQL](mysql.com)
 *   **Иконки:** [FontAwesome](https://fontawesome.com/)
 *   **Стили:** [Bootstrap](https://getbootstrap.com/) (используется через CDN)
 
@@ -97,7 +97,7 @@
 3.  **Написание решения:** Введите ваш код на одном из поддерживаемых языков в текстовое поле.
 4.  **Проверка:** Нажмите кнопку "Проверить решение". Ваш код будет запущен на тестовых примерах, и вы сразу увидите результат (Успех или Ошибка).
 
-**Поддерживаемые языки:** Python, C++, Java, JavaScript.
+**Поддерживаемые языки:** Python, C++, C Sharp ,Java, JavaScript.
 
 ## 🤝 Как внести свой вклад
 
