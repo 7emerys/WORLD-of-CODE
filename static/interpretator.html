@@ -136,6 +136,7 @@
             -webkit-mask-composite: xor;
         }
         .solution-container::before,
+        .editor-toolbar::before,
         .error-container::before {
             content: "";
             position: absolute;
@@ -166,7 +167,7 @@
         .solution-container {
             width: 100%;
             height: 50%;
-            position: relative; /* Добавлено */
+            position: relative;
         }
 
         .error-container {
@@ -203,7 +204,7 @@
         }
 
         .CodeMirror {
-            height: 100%;
+            height: calc(100% - 50px) !important;
             font-family: 'Montserrat Alternates', sans-serif;
             font-size: 16px;
         }
@@ -226,7 +227,7 @@
         
         .fullscreen-textarea {
             width: 100%;
-            height: 100%; /* Исправлено */
+            height: 100%;
             padding: 20px;
             font-size: 16px;
             border: none;
@@ -235,11 +236,127 @@
             background-color: transparent;
             color: white;
             font-family: 'Montserrat Alternates', sans-serif;
-            position: absolute; /* Добавлено */
+            position: absolute;
             top: 0;
             left: 0;
             box-sizing: border-box;
         }
+        /* Основной фон редактора */
+        .CodeMirror {
+           background-color: rgba(22, 25, 28, 0) !important;
+           
+        }
+
+        /* Область с кодом - делаем прозрачной */
+        .CodeMirror-code {
+            background-color: rgba(22, 25, 28, 0);
+        }
+
+        /* Отдельные строки кода */
+        .CodeMirror-line {
+           background-color: rgba(22, 25, 28, 0);
+        }
+
+        /* Номера строк (gutters) */
+        .CodeMirror-gutters {
+            background-color: rgba(22, 25, 28, 0) !important;
+            border-right: 3px solid rgba(4, 207, 72, 0.2) !important;
+
+        }
+
+        /* Цифры номеров строк */
+        .CodeMirror-linenumber {
+            color: rgba(255, 255, 255, 0.7) !important;
+            background-color: transparent !important;
+        }
+
+        /* Подсветка активной строки */
+        .CodeMirror-activeline-background {
+            background: rgba(189, 238, 96, 0.15) !important;
+        }
+
+        /* Выделенный текст */
+        .CodeMirror-selected {
+            background: rgba(189, 238, 96, 0.25) !important;
+        }
+
+        /* ОБЩИЕ СТИЛИ ДЛЯ ВСЕХ ЯЗЫКОВ */
+        .cm-keyword { color: #ff79c6 !important; }      /* ключевые слова */
+        .cm-variable { color: #50fa7b !important; }     /* переменные */
+        .cm-def { color: #50fa7b !important; }          /* определения */
+        .cm-string { color: #f1fa8c !important; }       /* строки */
+        .cm-comment { color: #6272a4 !important; }      /* комментарии */
+        .cm-number { color: #bd93f9 !important; }       /* числа */
+        .cm-operator { color: #ff79c6 !important; }     /* операторы */
+        .cm-builtin { color: #8be9fd !important; }      /* встроенные функции */
+        .cm-atom { color: #bd93f9 !important; }         /* true/false/null */
+        .cm-property { color: #66d9ef !important; }     /* свойства объектов */
+        .cm-variable-2 { color: #50fa7b !important; }   /* параметры */
+        .cm-variable-3 { color: #50fa7b !important; }   /* переменные уровня 3 */
+
+        /* СТИЛИ ДЛЯ ОСНОВНОГО ТЕКСТА И СКОБОК */
+        .cm { color: #f8f8f2 !important; }              /* основной цвет текста */
+        .cm-punctuation { color: #f8f8f2 !important; }  /* скобки (), [], {} и другие знаки препинания */
+
+        /* ЯЗЫКО-СПЕЦИФИЧНЫЕ СТИЛИ */
+        /* Для HTML/XML */
+        .cm-tag { color: #ff79c6 !important; }          /* теги */
+        .cm-attribute { color: #50fa7b !important; }    /* атрибуты */
+        .cm-bracket { color: #f8f8f2 !important; }      /* скобки <> */
+
+        /* Для CSS */
+        .cm-qualifier { color: #50fa7b !important; }    /* квалификаторы */
+        .cm-type { color: #66d9ef !important; }         /* типы */
+        .cm-unit { color: #bd93f9 !important; }         /* единицы измерения */
+
+        /* Для Python */
+        .cm-builtin { color: #8be9fd !important; }   
+        /* СКОБКИ И ОСНОВНОЙ ТЕКСТ */
+        .cm-punctuation { color: #f8f8f2 !important; }  /* основные скобки */
+        .cm-brace { color: #f8f8f2 !important; }        /* фигурные скобки {} */
+        .cm-paren { color: #f8f8f2 !important; }        /* круглые скобки () */
+        .cm-bracket { color: #f8f8f2 !important; }      /* квадратные скобки [] */   /* встроенные функции Python */
+
+        /* КУРСОР */
+        .CodeMirror-cursor {
+            border-left: 2px solid #bdee60 !important;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            background: rgba(22, 25, 28, 0.8);   
+            padding: 5px;
+            justify-content: space-between;
+            padding-right: 30px;
+            padding-left: 30px;
+            z-index: 10;
+            position: relative;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+        .language{
+            color: #BDEE60;
+            margin-top: 1%;
+        }
+        .lang-name {
+            color: #c7ff60;
+            font-weight: bold; 
+        }
+        .editor-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        #clear-btn , #fullscreen{
+            padding: 8px 15px;
+            background: rgba(7, 168, 79, 0.3);
+            color: white;
+            border: 4px solid rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            cursor: pointer;  
+            z-index: 11;
+        }
+        
 
     </style>
 </head>
@@ -265,7 +382,18 @@
         <div class="task-container"></div>
         <div class="side-column">
             <div class="solution-container">
-              <textarea class="fullscreen-textarea" placeholder="Начните вводить текст здесь..."></textarea>
+                 <div class="editor-toolbar">
+                    <a class="language">Выбраный язык: <span class="lang-name">Python</span></a>
+                    <div class="editor-buttons">
+                    <button id="fullscreen" class="icon-button" title="Полноэкранный режим">
+                    <i class="fas fa-expand"></i>
+                    <button id="clear-btn" class="icon-button" title="Очистить редактор">
+                        <i class="fas fa-trash-alt"></i>
+                        
+                    </button>
+                 </div>
+            </div>
+                 <textarea id="code-editor"></textarea>
             </div>
             <div class="error-container"></div>
             <div class="btn-all">
@@ -274,27 +402,50 @@
             </div>
         </div>
     </main>
-    <!-- СЕНЯ CodeMirror  НУЖЕН ИМБА -->
-<!-- CodeMirror 
-CodeMirror 
-CodeMirror  -->
-
-    <script>
-        // Скрипт для работы popup меню
-        document.getElementById('settings-btn').addEventListener('click', function() {
-            const popup = document.getElementById('popup-menu');
-            popup.classList.toggle('active');
+    <script>    
+        const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: 'javascript',
+            lineNumbers: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            indentUnit: 4,
+            lineWrapping: true,
+            autoCloseBrackets: true,
+        });
+        
+        const clearButton = document.getElementById('clear-btn');
+        
+        // Исправленный обработчик с остановкой распространения события
+        clearButton.addEventListener('mousedown', function(e) {
+            e.stopPropagation();
+        });
+        
+        clearButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            editor.setValue('');
         });
 
-        // Закрытие popup при клике вне его
+        function styleBrackets() {
+            const editorElement = document.querySelector('.CodeMirror');
+            if (editorElement) {
+                editorElement.style.setProperty('color', '#f8f8f2', 'important');
+            }
+        }
+        
+        const settingsBtn = document.getElementById('settings-btn');
+        const popupMenu = document.getElementById('popup-menu');
+        
+        settingsBtn.addEventListener('click', function() {
+            popupMenu.classList.toggle('active');
+        });
+        
         document.addEventListener('click', function(event) {
-            const popup = document.getElementById('popup-menu');
-            const settingsBtn = document.getElementById('settings-btn');
-            
-            if (!popup.contains(event.target) && !settingsBtn.contains(event.target)) {
-                popup.classList.remove('active');
+            if (!settingsBtn.contains(event.target) && !popupMenu.contains(event.target)) {
+                popupMenu.classList.remove('active');
             }
         });
+
+        styleBrackets();
     </script>
 </body>
 </html>
