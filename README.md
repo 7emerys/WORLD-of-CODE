@@ -38,7 +38,7 @@
 ## 🛠 Стек технологий
 
 *   **Бэкенд:** [Python](https://www.python.org/) + [Flask](https://flask.palletsprojects.com/)
-*   **Фронтенд:** [Jinja2](https://jinja.palletsprojects.com/), HTML, CSS, JavaScript
+*   **Фронтенд:** HTML, CSS, JavaScript
 *   **База данных:** [SQLite](https://www.sqlite.org/)
 *   **Иконки:** [FontAwesome](https://fontawesome.com/)
 *   **Стили:** [Bootstrap](https://getbootstrap.com/) (используется через CDN)
