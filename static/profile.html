@@ -47,7 +47,7 @@
         .center-container {
             display: flex;
             justify-content: center;
-            padding-top: 80px;
+            padding-top: 0px;
         }
         .container {
             width: 423px;
@@ -410,9 +410,29 @@
             color: #fff;
             font-weight: bold;
         }
+        .woc {
+            width: 90px;
+            height: 90px;
+            z-index: 10;
+            animation: pulse 2s infinite;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            position: relative;
+            animation: slideInFromTop 1s ease-out;
+
+        }
     </style>
 </head>
 <body>
+    <div class="header-container">
+    <a href="/static/index.html">
+        <img src="/img/worldofcode.png" alt="World of CODE" class="woc">
+    </a>
+</div>
     <div class="center-container">
         <div class="container">
             <div class="header">
