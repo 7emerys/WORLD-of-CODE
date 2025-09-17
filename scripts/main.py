@@ -31,8 +31,13 @@ app.include_router(tasks_router, prefix="/api")
 
 # Настройка статики
 static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static"))
+styles_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "styles"))
+js_scripts_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "JS_scripts"))
+
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 app.mount("/img", StaticFiles(directory="img"), name="img")
+app.mount("/styles", StaticFiles(directory="styles"), name="styles")
+app.mount("/JS_scripts", StaticFiles(directory="JS_scripts"), name="JS_scripts")
 
 
 # Роут для проверки авторизации

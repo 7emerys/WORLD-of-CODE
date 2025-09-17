@@ -1,0 +1,419 @@
+    * {
+        font-family: 'Montserrat Alternates', sans-serif;  
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Montserrat Alternates', sans-serif;
+        min-height: 100vh;
+        background-color: #000;
+        color: #fff;
+        background-image: url('../img/Frame 21.png');
+        position: relative;
+    }
+    .account-settings {
+        position: absolute;
+        top: 55px;
+        left: 85px;
+        color: white;
+    }
+    .account-settings h1 {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+    .btn_Profile, .btn_psw {
+        background-color: transparent;
+        color: #999999;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        display: block;
+        margin-bottom: 15px;
+        text-align: left;
+        padding: 5px 0;
+    }
+    .btn_Profile:hover, .btn_psw:hover {
+        color: #fff;
+    }
+    .center-container {
+        display: flex;
+        justify-content: center;
+        padding-top: 0px;
+    }
+    .container {
+        width: 423px;
+        min-height: 801px;
+        background-color: transparent;
+        border-radius: 15px;
+        padding: 20px;
+        color: #999999;
+        
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+        margin-top: 10%;
+    }
+    .logo-container {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #BDEE60;
+        margin-bottom: 20px;
+    }
+    .logo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .delete_icon {
+        height: 15px;
+        margin-left: 5px;
+    }
+    .btn_delete {
+        background-color: transparent;
+        color: #999999;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    .btn_delete:hover {
+        color: #fff;
+    }
+    .image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .upload-btn {
+        background-color: transparent;
+        color: #999999;
+        border-radius: 40px;
+        padding: 7px 15px;
+        border: 1px solid #999999;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    .upload-btn:hover {
+        background-color: rgba(255,255,255,0.1);
+    }
+    #image-input {
+        display: none;
+    }
+    
+    /* Стили для полей ввода */
+    .pseudo-container {
+        width: 100%;
+        padding: 15px;
+        position: relative;
+    }
+    .pseudo-label, .pseudo-label2, .pseudo-label3{
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .pseudo-label4{
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        margin-top: 5%;
+    }
+    .pseudo-label-text, .pseudo-label-text2, .pseudo-label-text3, .pseudo-label-text4 {
+        font-size: 14px;
+        color: #999999;
+        font-weight: bold;
+    }
+    .info-icon, .info-icon2, .info-icon3, .info-icon4 {
+        width: 16px;
+        height: 16px;
+        margin-left: 8px;
+        filter: brightness(0.6);
+    }
+    .pseudo-input-wrapper, .pseudo-input-wrapper2, .pseudo-input-wrapper3, .pseudo-input-wrapper4 {
+        position: relative;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .pseudo-input, .pseudo-input2, .pseudo-input3, .City_select {
+        width: 100%;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        color: #999999;
+        background-color: rgba(22, 25, 28, 0.66);
+        padding: 12px 15px;
+        border-radius: 8px;
+        position: relative;
+        z-index: 1;
+        Pointer-events: none;
+    }
+    .pseudo-input::placeholder, .pseudo-input2::placeholder {
+        color: #666;
+    }
+    .pseudo-input-border, .pseudo-input-border2, .pseudo-input-border3, .pseudo-input-border4 {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: 10px;
+        background: linear-gradient(to bottom, #BDEE60, #005436);
+        z-index: 0;
+        -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box, 
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        padding: 2px;
+    }
+    .pseudo-input2 {
+        height: 150px;
+    }
+    
+    /* Стили для выпадающих списков */
+    .language-select, .City_select {
+        width: 100%;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        color: #999999;
+        background-color: rgba(22, 25, 28, 0.66);
+        padding: 12px 15px;
+        border-radius: 8px;
+        position: relative;
+        z-index: 1;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        Pointer-events: none;
+    }
+    .language-select option, .City_select option {
+        background-color: rgba(14, 15, 17, 0.247);
+        color: #999999;
+    }
+    .select-wrapper, .city-select-wrapper {
+        position: relative;
+    }
+    .select-wrapper::after, .city-select-wrapper::after {
+        content: "▼";
+        font-size: 12px;
+        color: #999999;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        pointer-events: none;
+    }
+    
+    /* Стили для радио-кнопок */
+    .radio-group-vertical {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .radio-option-vertical {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        margin: 0 5px;
+    }
+
+    .radio-option-vertical label {
+        color: #999999;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 6px;
+        order: 1;
+        margin-left: 0;
+    }
+
+    .radio-option-vertical input[type="radio"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 30px;
+        height: 30px;
+        border: 2px solid #999999;
+        border-radius: 50%;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s;
+        margin-bottom: 0;
+        margin-top: 10%;
+        Pointer-events: none;
+    }
+
+    .radio-option-vertical input[type="radio"]:checked {
+        border-color: #BDEE60;
+        background: radial-gradient(circle, #BDEE60 0%, #BDEE60 40%, transparent 50%);
+    }
+
+    .radio-option-vertical input[type="radio"]:focus {
+        box-shadow: 0 0 0 2px rgba(189, 238, 96, 0.5);
+    }
+    .buttons-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        gap: 10px;
+    }
+    
+    .btn_save {
+        background-color: #0069FF;
+        border-radius: 40px;
+        color: #fff;
+        padding: 8px 15px;
+        border: none;
+        cursor: pointer;
+        flex: 1;
+    }
+    
+    .btn_cancel {
+        background-color: transparent;
+        border-radius: 40px;
+        color: #999999;
+        padding: 8px 15px;
+        border: 1px solid #999999;
+        cursor: pointer;
+        flex: 1;
+    }
+    
+    .btn_delet {
+        background-color: #C84545;
+        border-radius: 40px;
+        color: #fff;
+        padding: 8px 15px;
+        border: none;
+        cursor: pointer;
+        flex: 1;
+    }
+
+    /* Стили для модального окна */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+       
+    }
+
+    .modal-content {
+        background-color: rgba(22, 25, 28, 0.9);
+        padding: 30px;
+        border-radius: 10px;
+        width: 350px;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        border: 2px solid transparent;
+        border-image: linear-gradient(to bottom, #BDEE60, #005436);
+        border-image-slice: 1;
+    }
+
+    .modal-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+
+    .modal-text {
+        margin-bottom: 30px;
+        color: #999999;
+    }
+
+    .modal-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .modal-btn {
+        padding: 10px 25px;
+        border-radius: 40px;
+        cursor: pointer;
+        font-weight: bold;
+        border: none;
+    }
+
+    .modal-btn-confirm {
+        background-color: #C84545;
+        color: #fff;
+    }
+
+    .modal-btn-cancel {
+        background-color: transparent;
+        color: #999999;
+        border: 1px solid #999999;
+    }
+    
+    /* Новые стили для кнопок под логотипом */
+    .profile-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .profile-name {
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    
+    .profile-buttons {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .profile-btn {
+        background: none;
+        border: none;
+        color: #999999;
+        font-size: 14px;
+        cursor: pointer;
+        transition: color 0.3s;
+        padding: 5px 0;
+    }
+    
+    .profile-btn:hover {
+        color: #fff;
+    }
+    
+    .profile-btn.active {
+        color: #fff;
+        font-weight: bold;
+    }
+    .woc {
+        width: 90px;
+        height: 90px;
+        z-index: 10;
+        animation: pulse 2s infinite;
+    }
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 40px;
+        position: relative;
+        animation: slideInFromTop 1s ease-out;
+
+    }

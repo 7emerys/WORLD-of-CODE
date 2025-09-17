@@ -1,0 +1,587 @@
+* {
+    font-family: 'Montserrat Alternates', sans-serif;  
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Montserrat Alternates', sans-serif;
+    min-height: 100vh;
+    background-color: #000;
+    color: #fff;
+    position: relative;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/img/Frame 29.png');
+}
+
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    gap: 15px;
+    color: #BDEE60;
+    font-size: 18px;
+    text-align: center;
+}
+
+.spinner {
+    border: 3px solid rgba(189, 238, 96, 0.2);
+    border-top: 3px solid #BDEE60;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+.warning-message {
+    background-color: rgba(189, 238, 96, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    margin: 0 auto 20px;
+    max-width: 80%;
+    text-align: center;
+    color: #BDEE60;
+}
+
+.no-tasks-message {
+    background-color: rgba(22, 25, 28, 0.66);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    color: #ff6b6b;
+}
+
+.task.empty {
+    visibility: hidden;
+    border: none;
+    background: transparent;
+}
+.task.empty::before {
+    display: none;
+}
+
+/* Стили для активных/неактивных задач */
+.task.active-task {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.task.active-task:hover {
+    transform: translateY(-5px);
+}
+
+.task.inactive-task {
+    opacity: 0.7;
+    filter: grayscale(50%);
+}
+
+/* Сообщение об отсутствии задач */
+.no-tasks-message {
+    text-align: center;
+    padding: 40px;
+    margin-top: 50px;
+}
+
+.no-tasks-message img {
+    width: 150px;
+    height: 150px;
+    opacity: 0.6;
+    margin-bottom: 20px;
+}
+
+.no-tasks-message p {
+    font-size: 24px;
+    color: #BDEE60;
+    margin-bottom: 10px;
+}
+
+.no-tasks-message small {
+    font-size: 16px;
+    color: #aaa;
+}
+
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+.container {
+    width: 100%;
+    height: 100px;
+    padding: 20px;
+}
+.header {
+    height: 90px;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    width: 100%; 
+    max-width: 1920px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.logo2-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.div_scroll {
+    width: 725px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-radius: 20px;
+    z-index: 1;
+    margin-top: 50px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.div_scroll::-webkit-scrollbar {
+    display: none;
+}
+.div_scroll::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 10;
+  width: 50%;
+  height: 50%;
+  opacity: 0.7;
+  border-radius: 150px;
+  filter: blur(30px);
+  transform: translate3d(0,0,);
+  background: linear-gradient(-134deg, #BDEE60 10%, #005436 100%);
+  animation: glow 2s infinite;}
+
+.image-wrapper {
+    width: 145.49px;
+    height: 130px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    position: relative;
+    transition: transform 0.2s ease-out;
+}
+
+/* Стили для языковых блоков */
+.python_div, .js_div, .cplus_div, .java_div, .csharp_div {
+    width: 170px;
+    height: 130px;
+    background-color: rgba(22, 25, 28, 0.66);
+    border-radius: 20px;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.python_div::before,
+.js_div::before,
+.cplus_div::before,
+.java_div::before,
+.csharp_div::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 4px;
+    background: linear-gradient(to bottom, #BDEE60, #005436);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: 1;
+}
+
+.python_img, .js_img, .cplus_img, .csharp_img, .java_img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+}
+
+.logo{
+    width: 120px;
+    height: 120px;
+}
+.logo2 {
+    width: 60px;
+    height: 60px;
+    transition: transform 0.3s ease;
+}
+
+.logo2:hover {
+    transform: scale(1.1);
+}
+
+.arrow-container {
+    position: relative;
+    width: 725px;
+    height: 50px;
+    margin-top: -100px;
+    z-index: 2;
+}
+
+.arrow-down {
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    transform: translateX(-50%);
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid white;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+    animation: bounce 2s infinite;
+}
+
+@keyframes glow {
+    0% { opacity: 0; width: 100%; }
+    50% { opacity: 0.7; width: 50%; }
+    100% { opacity: 0; width: 100%; }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-10px); }
+    60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* Активный элемент */
+.active {
+    transform: scale(1.1);
+    z-index: 2;
+}
+.text_center,.text_center2{
+  display: flex;
+  margin-top: 4.5%;
+  font-size: 23px;
+  justify-content: center;
+  text-align: center;
+}
+.text_center2{
+ margin-top: 2%;
+ font-size: 33px;
+}
+.all_task {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+    width: 1464.84px;
+    height: 1320px;
+    gap: 30px;
+
+}
+
+.task_row {
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+}
+
+.task {
+    width: 692.47px;
+    height: 176.45px;
+    background-color: rgba(22, 25, 28, 0.66);
+    border-radius: 20px;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+}
+
+.task::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 4px;
+    background: linear-gradient(to bottom, #BDEE60, #005436);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: 1;
+}
+
+.world {
+    margin-left: 4%;
+    margin-top: 4%;
+    border-radius: 20px;
+    border: 2px solid black;
+    height: 100px;
+    width: 100px;
+}
+
+.task_text {
+    margin-left: 26%;
+    margin-top: -17%;
+    font-size: 26px;
+    font-width: bolder;
+}
+
+.task_text2 {
+    font-size: 20px;
+    margin-left: 26%;
+    margin-top: 1%;
+}
+.line{
+    width: 90%; 
+    height: 2px; 
+    background: linear-gradient(to right, #5e811d, #012b1c); 
+   margin-top: 2%;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    color: white;
+    font-size: 18px;
+}
+
+/* Стили для всплывающего меню */
+.popup {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    transform: translateY(10px) scale(0.95);
+    background-color: rgba(22, 25, 28, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    width: 220px;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: top right;
+    z-index: 100;
+    border: 2px solid rgba(189, 238, 96, 0.3);
+    backdrop-filter: blur(10px);
+    visibility: hidden;
+}
+
+.popup.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+}
+
+.popup::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    right: 20px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent rgba(22, 25, 28, 0.95) transparent;
+}
+
+.popup-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.popup-btn:hover {
+    background-color: rgba(189, 238, 96, 0.2);
+    transform: translateX(5px);
+}
+
+.popup-btn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: linear-gradient(to bottom, #BDEE60, #005436);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.popup-btn:hover::before {
+    opacity: 1;
+}
+
+.popup-btn i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.popup-btn.settings {
+    color: #BDEE60;
+}
+
+.popup-btn.profile {
+    color: #5D9CEC;
+}
+
+/* Индикатор загрузки (сохраняя существующие анимации) */
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    gap: 15px;
+    color: #BDEE60;
+    font-size: 18px;
+    text-align: center;
+}
+
+.spinner {
+    border: 3px solid rgba(189, 238, 96, 0.2);
+    border-top: 3px solid #BDEE60;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+/* Сообщения об ошибках (в стиле существующих .task) */
+.error-message {
+    background-color: rgba(22, 25, 28, 0.66);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    color: #ff6b6b;
+    position: relative;
+}
+
+.error-message::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 4px;
+    background: linear-gradient(to bottom, #ff6b6b, #8b0000);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: 1;
+}
+
+/* Кнопка повтора (стилизованная под существующий дизайн) */
+.retry-btn {
+    background: linear-gradient(to bottom, #BDEE60, #005436);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 15px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.retry-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Сообщение "нет задач" */
+.no-tasks {
+    background-color: rgba(22, 25, 28, 0.66);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    color: #BDEE60;
+    position: relative;
+}
+
+.no-tasks::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 4px;
+    background: linear-gradient(to bottom, #BDEE60, #005436);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: 1;
+}
+
+/* Ленивая загрузка изображений */
+img.lazy {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+img.lazy.loaded {
+    opacity: 1;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .loading-spinner,
+    .error-message,
+    .no-tasks {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .retry-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+.warning-message {
+    background-color: rgba(189, 238, 96, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    margin: 0 auto 20px;
+    max-width: 80%;
+    text-align: center;
+    color: #BDEE60;
+}
+
+.no-tasks-message {
+    background-color: rgba(22, 25, 28, 0.66);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    color: #ff6b6b;
+}
