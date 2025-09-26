@@ -3,15 +3,26 @@ document.addEventListener("DOMContentLoaded", function() {
     loadProfileData();
 });
 
+// Функция для проверки авторизации
+async function checkAuth() {
+    try {
+        const response = await fetch('/api/check-auth', {
+            credentials: 'include'
+        });
+        const result = await response.json();
+        return result.authenticated === true;
+    } catch (error) {
+        console.error('Ошибка проверки авторизации:', error);
+        return false;
+    }
+}
+
 // Элементы DOM
 const gallery = document.getElementById("gallery");
 const settingsBtn = document.getElementById('settings-btn');
 const popupMenu = document.getElementById('popup-menu');
 const tasksContainer = document.querySelector('.all_task');
 let selectedLanguage = null;
-
-// 1. Проверка авторизации
-
 
 // 2. Инициализация языков с бесконечной прокруткой
 function initLanguages() {
@@ -227,39 +238,13 @@ function createTaskElement(task) {
     `;
 
     element.onclick = () => {
-        saveUserSelection(task.id, selectedLanguage)
-            .then(() => {
-                window.location.href = `/interpretator.html?task_id=${task.id}&lang=${encodeURIComponent(selectedLanguage)}`;
-            })
-    };
+    console.log("Переход к задаче:", task.id, "Язык:", selectedLanguage);
+
+    // Просто переходим, сохранение сделаем позже
+    window.location.href = `/interpretator.html?task_id=${task.id}&lang=${encodeURIComponent(selectedLanguage)}`;
+};
 
     return element;
-}
-
-// 8. Сохранение выбора пользователя
-async function saveUserSelection(taskId, language) {
-    try {
-        const response = await fetch('/api/save-selection', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                task_id: taskId,
-                language: language
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Ошибка сохранения выбора');
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Ошибка:', error);
-        throw error;
-    }
 }
 
 // 9. Отрисовка состояния ошибки

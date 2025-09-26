@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import JSONResponse, Response  # Добавляем Response
+from fastapi.responses import JSONResponse, Response
 from scripts.Database import Database
 import jwt
 from pydantic import BaseModel
@@ -41,15 +41,12 @@ def get_current_user(request: Request):
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Неверный токен")
 
-
 class TaskModel(BaseModel):
     id: int
     title: str
-    description: str
-    logoUrl: str
-    language: str
-    difficulty: str
-    test_cases: list
+    full_description: str = ""
+    input_example: str = ""
+    output_example: str = ""
 
 
 class CodeSubmission(BaseModel):
@@ -120,7 +117,7 @@ async def get_task_logo(task_id: int, request: Request):
             db.connection.close()
 
 
-@router.get("/api/tasks/{task_id}/test-cases")
+@router.get("/tasks/{task_id}/test-cases")
 async def get_task_test_cases(task_id: int, language: str, request: Request):
     get_current_user(request)
     db = Database()
@@ -151,13 +148,15 @@ async def get_task_test_cases(task_id: int, language: str, request: Request):
             cursor.close()
             db.connection.close()
 
-@router.get("/api/tasks/{task_id}", response_model=TaskModel)
+@router.get("/tasks/{task_id}")
 async def get_task(task_id: int, request: Request):
+
     get_current_user(request)
     db = Database()
     try:
         cursor = db.connection.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM tasks WHERE id = %s", (task_id,))
+        cursor.execute("""SELECT title, full_description, input_example, output_example, difficulty FROM tasks WHERE id = %s """,
+                       (task_id,))
         task = cursor.fetchone()
         if not task:
             raise HTTPException(status_code=404, detail="Задача не найдена")
@@ -165,10 +164,12 @@ async def get_task(task_id: int, request: Request):
     except Error as e:
         raise HTTPException(status_code=500, detail=str(e))
     finally:
-        db.connection.close()
+        if db.connection.is_connected():
+            cursor.close()
+            db.connection.close()
 
 
-@router.post("/api/execute")
+@router.post("/execute")
 async def execute_code(submission: CodeSubmission, request: Request):
     username = get_current_user(request)
 
@@ -193,7 +194,7 @@ async def execute_code(submission: CodeSubmission, request: Request):
     return {"task_id": task.id}
 
 
-@router.get("/api/task-status/{task_id}")
+@router.get("/task-status/{task_id}")
 async def get_task_status(task_id: str, request: Request):
     get_current_user(request)
     from celery.result import AsyncResult
@@ -207,13 +208,14 @@ async def get_task_status(task_id: str, request: Request):
         return {'status': 'completed', 'results': task.result}
 
 
-@router.post("/api/save-selection")
+@router.post("/save-selection")
 async def save_user_selection(request: Request):
-    username = get_current_user(request)
-    data = await request.json()
-
-    db = Database()
     try:
+
+        username = get_current_user(request)
+        data = await request.json()
+
+        db = Database()
         cursor = db.connection.cursor()
 
         # Получаем user_id
@@ -235,12 +237,21 @@ async def save_user_selection(request: Request):
         """, (user_id, data['task_id'], data['language'], datetime.now()))
 
         db.connection.commit()
-        return {"status": "success"}
-    except Error as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    finally:
-        db.connection.close()
 
+        return JSONResponse(content={"status": "success", "message": "Выбор сохранен"})
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Ошибка при сохранении выбора: {e}")
+        return JSONResponse(
+            content={"status": "error", "message": str(e)},
+            status_code=500
+        )
+    finally:
+        if 'db' in locals() and db.connection.is_connected():
+            cursor.close()
+            db.connection.close()
 
 @celery_app.task(bind=True)
 def execute_code_task(self, code: str, language: str, task_id: int):
