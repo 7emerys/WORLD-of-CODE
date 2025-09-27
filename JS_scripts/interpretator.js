@@ -171,7 +171,7 @@ function displayTaskInfo() {
     };
 
     taskContainer.innerHTML = `
-        <div style="padding: 30px; height: 100%; overflow-y: auto; color: white;">
+        <div style="padding: 30px; height: 100%; overflow-y: scroll; color: white;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 style="color: #BDEE60; font-size: 24px; margin: 0;">${currentTask.title}</h2>
                 <span style="background: rgba(189, 238, 96, 0.2); padding: 5px 15px; border-radius: 15px; color: #BDEE60;">
@@ -486,18 +486,139 @@ function showError(message) {
 async function executeCode() {
     console.log("Запуск проверки кода...");
 
+    const startBtn = document.querySelector('.btn-start');
     const errorContainer = document.querySelector('.error-container');
-    if (errorContainer) {
-        errorContainer.innerHTML = `
-            <div style="padding: 20px; text-align: center;">
-                <h3 style="color: #BDEE60;">Система проверки</h3>
-                <p>Задача: <strong>${currentTask.title}</strong></p>
-                <p>Язык: <strong>${currentLanguage}</strong></p>
-                <p>ID: <strong>${currentTask.id}</strong></p>
-                <p style="margin-top: 15px; color: #BDEE60;">Функция проверки будет доступна после настройки бэкенда</p>
-            </div>
-        `;
+
+    if (!codeEditor) {
+        showError('Редактор кода не инициализирован');
+        return;
+    }
+
+    const code = codeEditor.getValue();
+    if (!code.trim()) {
+        showError('Код не может быть пустым');
+        return;
+    }
+
+    // Показываем индикатор загрузки
+    startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Проверка...';
+    startBtn.disabled = true;
+
+    try {
+        // Отправляем код на выполнение
+        const response = await fetch('/api/execute', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                task_id: currentTask.id,
+                code: code,
+                language: currentLanguage
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Ошибка сервера: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Задача отправлена на выполнение:", result);
+
+        // Запускаем опрос статуса
+        await pollTaskStatus(result.task_id);
+
+    } catch (error) {
+        console.error('Ошибка выполнения кода:', error);
+        showError(`Ошибка: ${error.message}`);
+    } finally {
+        // Восстанавливаем кнопку
+        startBtn.innerHTML = '<i class="fas fa-play"></i> Запустить';
+        startBtn.disabled = false;
     }
 }
 
+async function pollTaskStatus(taskId) {
+    const errorContainer = document.querySelector('.error-container');
+
+    try {
+        const response = await fetch(`/api/task-status/${taskId}`, {
+            credentials: 'include'
+        });
+
+        const status = await response.json();
+
+        if (status.status === 'pending' || status.status === 'running') {
+            // Продолжаем опрос через 1 секунду
+            errorContainer.innerHTML = `
+                <div style="padding: 20px; text-align: center;">
+                    <h3 style="color: #BDEE60;">Проверка кода...</h3>
+                    <p>${status.message || 'Код выполняется'}</p>
+                    <div class="spinner"></div>
+                </div>
+            `;
+            setTimeout(() => pollTaskStatus(taskId), 1000);
+            return;
+        }
+
+        if (status.status === 'completed') {
+            displayExecutionResult(status);
+        } else if (status.status === 'error') {
+            showExecutionError(status);
+        }
+
+    } catch (error) {
+        console.error('Ошибка проверки статуса:', error);
+        showError('Ошибка при проверке статуса выполнения');
+    }
+}
+
+function displayExecutionResult(result) {
+    const errorContainer = document.querySelector('.error-container');
+    const passed = result.passed;
+
+    let html = `
+        <div style="padding: 20px;">
+            <h3 style="color: ${passed ? '#BDEE60' : '#ff6b6b'}; margin-bottom: 15px;">
+                ${passed ? '✅ Задача решена правильно!' : '❌ Неверный ответ'}
+            </h3>
+            <p><strong>Входные данные:</strong> <code>${result.input || 'нет'}</code></p>
+            <p><strong>Ожидаемый вывод:</strong> <code>${result.expected}</code></p>
+            <p><strong>Ваш вывод:</strong> <code>${result.actual || 'нет вывода'}</code></p>
+            ${result.message ? `<p style="color: ${passed ? '#BDEE60' : '#ff6b6b'};">${result.message}</p>` : ''}
+    `;
+
+    if (!passed) {
+        html += `
+            <div style="margin-top: 15px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 5px;">
+                <strong>Ошибка:</strong> Вывод не совпадает с ожидаемым результатом
+            </div>
+        `;
+    }
+
+    html += `</div>`;
+    errorContainer.innerHTML = html;
+}
+
+function showExecutionError(errorResult) {
+    const errorContainer = document.querySelector('.error-container');
+
+    let html = `
+        <div style="padding: 20px;">
+            <h3 style="color: #ff6b6b; margin-bottom: 15px;">❌ Ошибка выполнения</h3>
+            <p><strong>Сообщение:</strong> ${errorResult.message}</p>
+    `;
+
+    if (errorResult.error) {
+        html += `
+            <div style="margin-top: 10px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 5px; font-family: monospace; font-size: 12px;">
+                ${errorResult.error}
+            </div>
+        `;
+    }
+
+    html += `</div>`;
+    errorContainer.innerHTML = html;
+}
 console.log("interpretator.js загружен");

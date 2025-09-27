@@ -1,7 +1,17 @@
 document.addEventListener("DOMContentLoaded", function() {
     init();
-    loadProfileData();
 });
+
+// Инициализация при загрузке страницы
+async function init() {
+    if (await checkAuth()) {
+        initLanguages();
+        setupLanguageScroll();
+        setupPopupMenu();
+        loadAllTasks();
+        loadProfileData();
+    }
+}
 
 // Функция для проверки авторизации
 async function checkAuth() {
@@ -260,51 +270,88 @@ function renderErrorState(message = 'Произошла ошибка при за
 
 // 10. Настройка всплывающего меню
 function setupPopupMenu() {
-    settingsBtn.addEventListener('click', (e) => {
+    const settingsBtn = document.getElementById('settings-btn');
+    const popupMenu = document.getElementById('popup-menu');
+
+    if (!settingsBtn || !popupMenu) {
+        console.error('Элементы popup-menu не найдены');
+        return;
+    }
+
+    console.log('Настройка popup-menu'); // Для отладки
+
+    // Удаляем существующие обработчики чтобы избежать дублирования
+    settingsBtn.replaceWith(settingsBtn.cloneNode(true));
+    popupMenu.replaceWith(popupMenu.cloneNode(true));
+
+    // Получаем свежие ссылки на элементы
+    const freshSettingsBtn = document.getElementById('settings-btn');
+    const freshPopupMenu = document.getElementById('popup-menu');
+
+    // Флаг для отслеживания состояния клика
+    let isProcessingClick = false;
+
+    freshSettingsBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        popupMenu.classList.toggle('active');
+        e.preventDefault();
+
+        // Защита от двойных кликов
+        if (isProcessingClick) {
+            console.log('Клик уже обрабатывается, пропускаем');
+            return;
+        }
+
+        isProcessingClick = true;
+        console.log('Клик по settings-btn'); // Для отладки
+
+        // Переключаем видимость popup
+        freshPopupMenu.classList.toggle('active');
+
+        // Сбрасываем флаг после небольшой задержки
+        setTimeout(() => {
+            isProcessingClick = false;
+        }, 100);
     });
 
-    document.addEventListener('click', () => popupMenu.classList.remove('active'));
-    popupMenu.addEventListener('click', (e) => e.stopPropagation());
-}
+    // Обработчик клика по документу для закрытия popup
+    document.addEventListener('click', (e) => {
+        if (!freshPopupMenu.contains(e.target) && !freshSettingsBtn.contains(e.target)) {
+            freshPopupMenu.classList.remove('active');
+        }
+    });
 
-// Инициализация при загрузке страницы
-async function init() {
-    if (await checkAuth()) {
-        initLanguages();
-        setupLanguageScroll();
-        setupPopupMenu();
-        loadAllTasks();
-    }
+    // Предотвращаем закрытие при клике внутри popup
+    freshPopupMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
 }
 
 // Загрузка аватара
-    async function loadProfileData() {
-        try {
-            const response = await fetch("/api/profile/data", {credentials: 'include'});
+async function loadProfileData() {
+    try {
+        const response = await fetch("/api/profile/data", {credentials: 'include'});
 
-            if (response.status === 401) {
-                window.location.href = "/static/login.html";
-                return;
-            }
-
-            const data = await response.json();
-
-            if (data.success) {
-                // Обновляем данные на странице
-                document.getElementById("logo2").src = data.avatar;
-
-                // Устанавливаем уровень
-                    const levelRadio = document.querySelector(`input[name="level"][value="${data.jms}"]`);
-                    if (levelRadio) levelRadio.checked = true;
-            } else {
-                    showNotification("Ошибка загрузки данных профиля", 'error');
-                }
-        } catch (error) {
-            console.error("Ошибка сети:", error);
+        if (response.status === 401) {
+            window.location.href = "/static/login.html";
+            return;
         }
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Обновляем данные на странице
+            document.getElementById("logo2").src = data.avatar;
+
+            // Устанавливаем уровень
+                const levelRadio = document.querySelector(`input[name="level"][value="${data.jms}"]`);
+                if (levelRadio) levelRadio.checked = true;
+        } else {
+                showNotification("Ошибка загрузки данных профиля", 'error');
+            }
+    } catch (error) {
+        console.error("Ошибка сети:", error);
     }
+}
 
 // Запускаем инициализацию
 init();

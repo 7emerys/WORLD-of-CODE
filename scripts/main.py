@@ -6,6 +6,7 @@ from scripts.login import router as login_router
 from scripts.register import router as register_router
 from scripts.Profile import router as profile_router
 from scripts.Tasks import router as tasks_router
+from scripts.interpretator import router as interpretator_router
 import jwt
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -28,6 +29,7 @@ app.include_router(login_router, prefix="/api")
 app.include_router(register_router, prefix="/api")
 app.include_router(profile_router, prefix="/api")
 app.include_router(tasks_router, prefix="/api")
+app.include_router(interpretator_router, prefix="/api")
 
 # Настройка статики
 static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static"))

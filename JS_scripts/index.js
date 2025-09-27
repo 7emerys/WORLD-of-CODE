@@ -11,58 +11,90 @@ async function checkAuth() {
     }
 }
 
-// Функция для отображения аватарки пользователя
-function showUserProfile(userData) {
+async function showUserProfile(userData) {
     const authButtons = document.getElementById('authButtons');
 
-    // Создаем элемент аватарки
+    if (!authButtons) {
+        console.error('Элемент authButtons не найден');
+        return;
+    }
+
+    // Создаем контейнер для профиля
     const profileDiv = document.createElement('div');
     profileDiv.className = 'user-profile';
 
     const profileDropdown = document.createElement('div');
     profileDropdown.className = 'profile-dropdown';
 
-    const avatarImg = document.createElement('img');
-    avatarImg.className = 'user-avatar';
-    avatarImg.src = userData.avatar || '/img/default-avatar.png';
-    avatarImg.alt = 'Аватар пользователя';
-    avatarImg.onclick = function() {
-        document.getElementById('dropdownMenu').classList.toggle('show');
-    };
+    try {
+        // Загружаем данные профиля
+        const response = await fetch("/api/profile/data", {
+            credentials: 'include'
+        });
 
-    const dropdownMenu = document.createElement('div');
-    dropdownMenu.id = 'dropdownMenu';
-    dropdownMenu.className = 'dropdown-menu';
+        if (!response.ok) {
+            throw new Error(`Ошибка HTTP: ${response.status}`);
+        }
 
-    // Элементы выпадающего меню
-    const profileLink = document.createElement('a');
-    profileLink.className = 'dropdown-item';
-    profileLink.href = '/static/profile.html';
-    profileLink.textContent = 'Профиль';
+        const data = await response.json();
 
-    const divider = document.createElement('div');
-    divider.className = 'dropdown-divider';
+        // Создаем аватар
+        const avatarImg = document.createElement('img');
+        avatarImg.src = data.avatar || '/static/images/default-avatar.png';
+        avatarImg.className = 'user-avatar';
+        avatarImg.alt = 'Аватар пользователя';
+        avatarImg.onerror = function() {
+            this.src = '/static/images/default-avatar.png';
+        };
 
-    const logoutBtn = document.createElement('a');
-    logoutBtn.className = 'dropdown-item';
-    logoutBtn.href = '#';
-    logoutBtn.textContent = 'Выйти';
-    logoutBtn.onclick = function(e) {
-        e.preventDefault();
-        logout();
-    };
+        // Создаем выпадающее меню
+        const dropdownMenu = document.createElement('div');
+        dropdownMenu.id = 'dropdownMenu';
+        dropdownMenu.className = 'dropdown-menu';
 
-    dropdownMenu.appendChild(profileLink);
-    dropdownMenu.appendChild(divider);
-    dropdownMenu.appendChild(logoutBtn);
+        // Элементы меню
+        const profileLink = document.createElement('a');
+        profileLink.className = 'dropdown-item';
+        profileLink.href = '/static/profile.html';
+        profileLink.textContent = 'Профиль';
 
-    profileDropdown.appendChild(avatarImg);
-    profileDropdown.appendChild(dropdownMenu);
-    profileDiv.appendChild(profileDropdown);
+        const divider = document.createElement('div');
+        divider.className = 'dropdown-divider';
 
-    // Заменяем кнопки на аватарку
-    authButtons.innerHTML = '';
-    authButtons.appendChild(profileDiv);
+        const logoutBtn = document.createElement('a');
+        logoutBtn.className = 'dropdown-item';
+        logoutBtn.href = '#';
+        logoutBtn.textContent = 'Выйти';
+        logoutBtn.onclick = function(e) {
+            e.preventDefault();
+            logout();
+        };
+
+        // Собираем меню
+        dropdownMenu.appendChild(profileLink);
+        dropdownMenu.appendChild(divider);
+        dropdownMenu.appendChild(logoutBtn);
+
+        // Собираем профиль
+        profileDropdown.appendChild(avatarImg);
+        profileDropdown.appendChild(dropdownMenu);
+        profileDiv.appendChild(profileDropdown);
+
+        // Обработчик клика по аватару
+        avatarImg.onclick = function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        };
+
+        // Заменяем кнопки на аватар
+        authButtons.innerHTML = '';
+        authButtons.appendChild(profileDiv);
+
+    } catch (error) {
+        console.error('Ошибка загрузки профиля:', error);
+        // Можно показать заглушку или оставить кнопки авторизации
+        authButtons.innerHTML = '<a href="/static/login.html">Войти</a>';
+    }
 }
 
 // Функция для выхода из системы

@@ -114,12 +114,9 @@
 
     /* Общие стили для контейнеров с градиентной рамкой */
     .task-container,
-
     .solution-container,
-
     .error-container {
         position: relative;
-        overflow: hidden;
         border-radius: 30px;
         background-color: rgba(22, 25, 28, 0.66);
     }
@@ -156,7 +153,6 @@
     .task-container {
         width: 900px;
         height: 100%;
-        Overflow: scroll;
     }
 
     .side-column {
